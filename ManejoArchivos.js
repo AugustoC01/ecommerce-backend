@@ -28,15 +28,20 @@ class Contenedor {
   async save(object) {
     try {
       let fileData = await this.getAll();
-      const indexArray = fileData.map((x) => x.id).sort();
-      object.id = parseInt(indexArray[indexArray.length - 1]) + 1;
+      const index = fileData.length + 1;
+      object.id = index;
+
       if (!object.id) {
         object.id = 1;
         const data = [{ ...object }];
         await fs.promises.writeFile(this.fileName, JSON.stringify(data));
+        return arreglo[0].id;
       }
+
       fileData.push(object);
       await fs.promises.writeFile(this.fileName, JSON.stringify(fileData));
+
+      return index;
     } catch (error) {
       console.log(error);
     }
@@ -83,6 +88,7 @@ async function main() {
   // const a = await texto.getAll();
   // console.log(a);
   // const b = await texto.save(initialObject);
+  // console.log(b);
   // const c = await texto.getById(2);
   // console.log(c);
   // const d = await texto.deleteById();
