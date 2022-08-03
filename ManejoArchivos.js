@@ -77,7 +77,7 @@ class Contenedor {
   }
 }
 
-initialObject = {
+/* const initialObject = {
   title: 'Nuevo Art',
   price: 3000,
   thumbnail: 'url_img',
@@ -85,14 +85,16 @@ initialObject = {
 const texto = new Contenedor('productos');
 
 async function main() {
-  // const a = await texto.getAll();
-  // console.log(a);
-  // const b = await texto.save(initialObject);
-  // console.log(b);
-  // const c = await texto.getById(2);
-  // console.log(c);
-  // const d = await texto.deleteById();
-  // const e = await texto.deleteAll();
+  const a = await texto.getAll();
+  console.log(a);
+  const b = await texto.save(initialObject);
+  console.log(b);
+  const c = await texto.getById(2);
+  console.log(c);
+  const d = await texto.deleteById();
+  const e = await texto.deleteAll();
 }
 
-main();
+main(); */
+
+module.exports = Contenedor;
