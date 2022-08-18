@@ -11,7 +11,13 @@
             <img src="{{this.thumbnail}}" class="product-img"/>
         </div>
     {{/each}}
+{{else}}
+    <h1>No se encontraron productos</h1>
 {{/if}}
+
+<a href='/form'>
+   <input type='button' value='Formulario' />
+</a>
 
 <br/>
 {{> footer}}

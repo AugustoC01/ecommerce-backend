@@ -1,0 +1,24 @@
+{{> navbar}}
+<br/>
+
+<div class='form-div'>
+  <h1>Carga de productos</h1>
+
+    <form action='/api/products' method='POST'>
+      <label for='name'>Nombre: </label>
+      <input type='text' name='name' id='name' />
+      <label for='price'>Precio: </label>
+      <input type='text' name='price' id='price' />
+      <label for='thumbnail'>Imagen: </label>
+      <input type='text' name='thumbnail' id='thumbnail' />
+      <input type='submit' value='Cargar' />
+  </form>
+</div>
+
+<a href='/api/products'>
+   <input type='button' value='Productos' />
+</a>
+
+<br/>
+{{> footer}}
+<br/>

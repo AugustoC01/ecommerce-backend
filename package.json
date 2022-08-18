@@ -1,16 +1,12 @@
 {
   "name": "test",
   "version": "0.0.0",
-  "description": "algo random testeando",
+  "description": "Proyecto backend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "algoritmos",
-    "vacaciones"
-  ],
-  "author": "Guille Fergnani",
+  "author": "Augusto",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
