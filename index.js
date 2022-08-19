@@ -20,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/api/products', router);
 
+//MOTOR DE PLANTILLA
+app.set('view engine', 'ejs');
+
 // IMPORTACION DE LA CLASE CONTENEDOR
 const Contenedor = require('./ManejoArchivos.js');
 const products = new Contenedor('productos');
@@ -27,17 +30,17 @@ const products = new Contenedor('productos');
 // IMPLEMENTACION DEL ROUTER
 router.get('/', async (req, res) => {
   const productsData = await products.getAll();
-  res.json(productsData);
+  res.render('pages/productsList', { products: productsData });
 });
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const productData = await products.getById(id);
-    res.json(productData);
+    res.render('pages/productView', { prod: productData });
   } catch (error) {
     if (TypeError) {
-      console.log({ error: 'producto no encontrado' });
+      res.render('pages/productNotFound');
     } else {
       console.log(error);
     }
@@ -51,7 +54,7 @@ router.post('/', async (req, res) => {
   body.price = parseFloat(body.price);
   await products.save(body);
   console.log(body);
-  res.redirect('/api/products');
+  res.redirect('/form');
 });
 
 router.put('/:id', async (req, res) => {
@@ -71,7 +74,7 @@ router.delete('/:id', async (req, res) => {
 
 // RUTA DEL FORMULARIO DE CARGA
 app.get('/form', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.render('pages/productForm');
 });
 
 /* router.get('/random', async (req, res) => {

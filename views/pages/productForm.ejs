@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <%- include('../partials/navbar'); %>
+
+    <h1>Formulario de carga</h1>
+
+    <form action="/api/products" method="POST">
+      <input type="text" name="name" id="name" />
+      <input type="text" name="price" id="price" />
+      <input type="text" name="url" id="url" />
+      <input type="submit" value="Cargar producto" />
+    </form>
+
+    <a href="/api/products">
+      <input type="button" value="Productos" />
+    </a>
+
+    <%- include('../partials/footer'); %>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <body>
+    <%- include('../partials/navbar'); %>
+
+    <h1><%=prod.title%></h1>
+
+    <p><%=prod.id%></p>
+    <p><%=prod.title%></p>
+    <p><%=prod.price%></p>
+    <img class="product-img" src="<%=prod.thumbnail%>" /><br />
+
+    <%- include('../partials/footer'); %>
+  </body>
+</html>
