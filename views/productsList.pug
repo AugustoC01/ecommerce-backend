@@ -1,0 +1,17 @@
+html
+    head
+        title='Productos'
+        style
+            include styles.css
+    body
+        h1="listado de productos"
+        div
+        for item in products
+            div
+                p=item.id
+                p=item.title
+                p=item.price
+                img(class='product-img', src=item.thumbnail)
+        
+        a(href="/form")
+            input(type='button', value='Cargar producto') 

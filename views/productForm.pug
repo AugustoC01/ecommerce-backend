@@ -1,0 +1,13 @@
+html
+  head 
+    title='Formulario de carga'
+  body 
+    h1='Formulario de carga'
+    form(action='/api/products', method='POST')
+      input(type='text', name='name', id='name')
+      input(type='text', name='price', id='price')
+      input(type='text', name='img', id='img')
+      input(type='submit', value='Cargar')
+   
+    a(href="api/products/")
+      input(type='button', value='Productos') 

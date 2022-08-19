@@ -7,7 +7,7 @@ const router = Router();
 const PORT = process.env.PORT || 8080;
 
 const server = app.listen(PORT, () => {
-  console.log(`Server escuchando en el puerto ${PORT}`);
+  console.log(`Server on port ${PORT}`);
 });
 
 server.on('error', (error) => {
@@ -20,6 +20,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/api/products', router);
 
+//MOTOR DE PLANTILLA
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 // IMPORTACION DE LA CLASE CONTENEDOR
 const Contenedor = require('./ManejoArchivos.js');
 const products = new Contenedor('productos');
@@ -27,17 +31,19 @@ const products = new Contenedor('productos');
 // IMPLEMENTACION DEL ROUTER
 router.get('/', async (req, res) => {
   const productsData = await products.getAll();
-  res.json(productsData);
+  res.render('productsList.pug', { products: productsData, productsExist: true });
 });
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const productData = await products.getById(id);
-    res.json(productData);
+    if (productData) {
+      res.render('productView.pug', { prod: productData });
+    }
   } catch (error) {
     if (TypeError) {
-      console.log({ error: 'producto no encontrado' });
+      res.render('productNotFound.pug', { errorMsg: 'Producto no encontrado' });
     } else {
       console.log(error);
     }
@@ -51,7 +57,7 @@ router.post('/', async (req, res) => {
   body.price = parseFloat(body.price);
   await products.save(body);
   console.log(body);
-  res.redirect('/api/products');
+  res.redirect('/form');
 });
 
 router.put('/:id', async (req, res) => {
@@ -71,7 +77,7 @@ router.delete('/:id', async (req, res) => {
 
 // RUTA DEL FORMULARIO DE CARGA
 app.get('/form', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.render('productForm.pug');
 });
 
 /* router.get('/random', async (req, res) => {
