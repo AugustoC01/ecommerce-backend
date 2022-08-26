@@ -1,7 +1,3 @@
-.footer {
-  color: blue;
-}
-
 .product-img {
   width: 300px;
   max-width: 300px;
@@ -9,6 +5,16 @@
   max-height: 200px;
 }
 
-h1 {
-  font-family: 'Lucida Console', 'Courier New', monospace;
+.mail {
+  font-weight: bold;
+  color: blue;
+}
+
+.date {
+  color: #964b00;
+}
+
+.msg {
+  color: green;
+  font-style: italic;
 }

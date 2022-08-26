@@ -5,13 +5,15 @@ const { engine } = require('express-handlebars');
 const app = express();
 const router = Router();
 
+//IMPLEMENTACION DE IO
+const httpServer = require('http').createServer(app);
+const io = require('socket.io')(httpServer);
+
 const PORT = process.env.PORT || 8080;
 
-const server = app.listen(PORT, () => {
-  console.log(`Server escuchando en el puerto ${PORT}`);
-});
+httpServer.listen(PORT, () => console.log(`SERVER ON PORT ${PORT}`));
 
-server.on('error', (error) => {
+httpServer.on('error', (error) => {
   `Error en el servidor ${error}`;
 });
 
@@ -35,15 +37,35 @@ app.engine(
 
 // IMPORTACION DE LA CLASE CONTENEDOR
 const Contenedor = require('./ManejoArchivos.js');
-const products = new Contenedor('productos');
+const products = new Contenedor('products');
+const chatHistory = new Contenedor('chatHistory');
 
-// IMPLEMENTACION DEL ROUTER
-router.get('/', async (req, res) => {
-  const productsData = await products.getAll();
-  res.render('productslist', { products: productsData, productsExist: true });
+// RUTA
+app.get('/', async (req, res) => {
+  res.render('productsList');
 });
 
-router.get('/:id', async (req, res) => {
+//IMPLEMENTACION DEL SOCKET
+io.on('connection', async (socket) => {
+  const chatData = await chatHistory.getAll();
+  const productsData = await products.getAll();
+  io.sockets.emit('chatData', chatData);
+  io.sockets.emit('productsData', productsData);
+
+  socket.on('chatMsg', async (msg) => {
+    await chatHistory.save(msg);
+    const chatData = await chatHistory.getAll();
+    io.sockets.emit('chatData', chatData);
+  });
+
+  socket.on('addProd', async (data) => {
+    await products.save(data);
+    const productsData = await products.getAll();
+    io.sockets.emit('productsData', productsData);
+  });
+});
+
+/* router.get('/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const productData = await products.getById(id);
@@ -88,9 +110,4 @@ router.delete('/:id', async (req, res) => {
 app.get('/form', (req, res) => {
   res.render('productForm');
 });
-
-/* router.get('/random', async (req, res) => {
-  let randomId = Math.floor(Math.random() * 10) + 1;
-  const randomProduct = await products.getById(randomId);
-  res.json(randomProduct);
-}); */
+*/
