@@ -1,0 +1,15 @@
+{
+  "name": "test",
+  "version": "0.0.0",
+  "description": "Proyecto backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Augusto",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
