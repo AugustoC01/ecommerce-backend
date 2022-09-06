@@ -1,25 +1,15 @@
 {{>navbar}}
-<br>
 
-{{>productsForm}}
-<br>
-<br>
+<div class='products-container'>
+  {{>productsForm}}
+  <h1 class='products-title'>Listado de productos</h1>
+  <div id='products-list' class='products-list'></div>
+</div>
 
-<h1>Listado de productos</h1>
+<div class='chat-container'>
+  <h1 class='chat-title'>Centro de mensajes</h1>
+  <table id='msg-list'></table>
+  {{>chatForm}}
+</div>
 
-<div id='products-list'></div>
-
-<br>
-
-<h1>Centro de mensajes</h1>
-
-<br>
-
-<table id='msg-list'></table>
-
-<br>
-  
-{{>chatForm}}
-
-<br>
 {{>footer}}

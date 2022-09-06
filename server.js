@@ -36,12 +36,14 @@ app.engine(
 );
 
 // IMPORTACION DE LA CLASE CONTENEDOR
-const Contenedor = require('./ManejoArchivos.js');
-const products = new Contenedor('products');
-const chatHistory = new Contenedor('chatHistory');
+const Contenedor = require('./Contenedor.js');
+const { optionsDB } = require('./options/mariaDB');
+const { optionsSQ } = require('./options/SQLite3');
+const products = new Contenedor('products', optionsDB);
+const chatHistory = new Contenedor('chatHistory', optionsSQ);
 
 // RUTA
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
   res.render('productsList');
 });
 
@@ -64,50 +66,3 @@ io.on('connection', async (socket) => {
     io.sockets.emit('productsData', productsData);
   });
 });
-
-/* router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const productData = await products.getById(id);
-    if (productData) {
-      res.render('productView', { product: productData });
-    }
-  } catch (error) {
-    if (TypeError) {
-      res.render('productNotFound', { errorMsg: 'Producto no encontrado' });
-    } else {
-      console.log(error);
-    }
-  }
-});
-
-router.post('/', async (req, res) => {
-  const { body } = req;
-  const newId = await products.getNewId();
-  body.id = newId;
-  body.price = parseFloat(body.price);
-  await products.save(body);
-  console.log(body);
-  res.redirect('/form');
-});
-
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
-  let productToUpdate = await products.getById(id);
-  productToUpdate = { ...productToUpdate, ...body };
-  await products.update(productToUpdate);
-  res.redirect('/api/products');
-});
-
-router.delete('/:id', async (req, res) => {
-  const { id } = req.params;
-  await products.deleteById(id);
-  res.redirect('/api/products');
-});
-
-// RUTA DEL FORMULARIO DE CARGA
-app.get('/form', (req, res) => {
-  res.render('productForm');
-});
-*/

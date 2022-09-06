@@ -1,7 +1,19 @@
 <div class='chat-div'>
-  <form id='chatForm'>
-    <input type='email' name='mail' id='mail' placeholder='example@example.com' />
-    <input type='text' name='msg' id='msg' placeholder='Ingrese un mensaje...' />
-    <input type='button' value='Enviar' onclick='sendMsg(chatForm)' />
+  <form id='chatForm' class='chat-form'>
+    <input
+      type='email'
+      name='user'
+      id='user'
+      class='chat-input'
+      placeholder='example@example.com'
+    />
+    <input
+      type='text'
+      name='msg'
+      id='msg'
+      class='chat-input'
+      placeholder='Ingrese un mensaje...'
+    />
+    <input type='button' class='btn' value='>' onclick='sendMsg(chatForm)' />
   </form>
 </div>

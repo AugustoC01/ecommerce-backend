@@ -6,8 +6,8 @@ socket.on('chatData', (data) => {
       chatMsgs +
       `
     <tr>
-    <td> <p class='mail'>${newMsg.mail}</p> </td>
-    <td> <p class='date'>[${newMsg.date}] :</p> </td>
+    <td> <p class='user'>${newMsg.user}</p> </td>
+    <td> <p class='date'>[${newMsg.timestamp}] :</p> </td>
     <td> <p class='msg'>${newMsg.msg}<p/> </td>
     </tr>`,
     ''
@@ -16,24 +16,29 @@ socket.on('chatData', (data) => {
 });
 
 socket.on('productsData', (data) => {
-  let prodMap = data.map((prod) => {
-    return `
-    <tr>
-    <td> <p>${prod.title}</p> </td>
-    <td> <p>${prod.price}</p> </td>
-    <td> <img src='${prod.thumbnail}' class='product-img'/> </td>
-    </tr>
-    `;
-  });
-
-  document.getElementById('products-list').innerHTML = prodMap;
+  const prodData = data.reduce(
+    (products, newProd) =>
+      products +
+      `
+    <div class='prod-container'>
+    <p>${newProd.id}</p>
+    <p>${newProd.title}</p>
+    <p>$${newProd.price}</p>
+    <img src='${newProd.thumbnail}' class='product-img'/>
+    <p>${newProd.timestamp}</p>
+    <p>${newProd.description}</p>
+    <p>${newProd.code}</p>
+    <p>${newProd.stock}</p> 
+    </div>`,
+    ''
+  );
+  document.getElementById('products-list').innerHTML = prodData;
 });
 
 function sendMsg(chatData) {
   let messageToAdd = {
-    mail: chatData.mail.value,
+    user: chatData.user.value,
     msg: chatData.msg.value,
-    date: new Date().toDateString(),
   };
   socket.emit('chatMsg', messageToAdd);
 }
@@ -41,8 +46,11 @@ function sendMsg(chatData) {
 function sendProd(prodData) {
   let prodToAdd = {
     title: prodData.title.value,
-    price: prodData.price.value,
+    description: prodData.description.value,
+    code: prodData.code.value,
     thumbnail: prodData.thumbnail.value,
+    price: prodData.price.value,
+    stock: prodData.stock.value,
   };
   socket.emit('addProd', prodToAdd);
 }
