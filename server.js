@@ -54,6 +54,12 @@ io.on('connection', async (socket) => {
   io.sockets.emit('chatData', chatData);
   io.sockets.emit('productsData', productsData);
 
+  // SI EL METODO DEVUELVE [], MUESTRO QUE NO SE ENCONTRO, SINO MUESTRO EL OBJETO
+  const exampleProd = await products.getById(100);
+  Object.keys(exampleProd).length == 0
+    ? console.log('No se encontró información')
+    : console.log(exampleProd);
+
   socket.on('chatMsg', async (msg) => {
     await chatHistory.save(msg);
     const chatData = await chatHistory.getAll();
