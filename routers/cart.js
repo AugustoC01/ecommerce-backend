@@ -1,54 +1,65 @@
-cartRouter.post('/', async (req, res) => {
-  const cart = {};
-  cart.id = await carts.getNewId();
-  cart.timestamp = new Date().toLocaleString();
-  cart.products = [];
-  await carts.save(cart);
-  res.json({ cartId: cart.id });
-});
+const express = require('express');
+const { CartsDao } = require('../daos/mainDao');
+const cartsRouter = express.Router();
 
-cartRouter.post('/:id/products', async (req, res) => {
-  const { id } = req.params;
-  const { prodId } = req.body;
-  let cart = await carts.getById(id);
-  const prod = await products.getById(prodId);
-  cart.products.push(prod);
-  await carts.update(cart);
-  res.json({ msg: 'Producto agregado', cart: cart });
-});
+const carts = new CartsDao();
 
-cartRouter.get('/:id/products', async (req, res) => {
-  const { id } = req.params;
+cartsRouter.post('/', async (req, res) => {
   try {
-    const cart = await carts.getById(id);
-    if (cart) {
-      res.json(cart.products);
-    }
-  } catch (error) {
-    if (TypeError) {
-      res.json({ msg: 'Carrito no encontrado' });
-    } else {
-      console.log(error);
-    }
+    const cart = await carts.newCart();
+    res.status(200).json({ status: 200, data: cart.id, msg: 'Carrito creado' });
+  } catch (e) {
+    console.log(e);
   }
 });
 
-cartRouter.delete('/:id', async (req, res) => {
+cartsRouter.post('/:id/products', async (req, res) => {
   const { id } = req.params;
-  await carts.deleteById(id);
-  res.json({ msg: `Carrito eliminado` });
+  const { prodId } = req.body;
+  try {
+    const cart = await carts.addProdToCart(id, prodId);
+    res.status(200).json({ status: 200, data: cart, msg: 'Producto agregado' });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
-cartRouter.delete('/:id/products/:id_prod', async (req, res) => {
-  const { id, id_prod } = req.params;
-  const cart = await carts.getById(id);
-  const prods = [];
-  cart.products.forEach((prod) => {
-    if (prod.id != id_prod) {
-      prods.push(prod);
-    }
-  });
-  cart.products = prods;
-  await carts.update(cart);
-  res.json({ msg: `Producto eliminado` });
+cartsRouter.get('/:id/products', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cart = await carts.getCartById(id);
+    cart
+      ? res.status(200).json({
+          status: 200,
+          data: cart.products,
+          msg: 'Productos del carrito',
+        })
+      : res.status(404).json({ status: 404, msg: 'No se encontro el carrito' });
+  } catch (e) {
+    console.log(e);
+  }
 });
+
+cartsRouter.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await carts.deleteCartById(id);
+    res.status(200).json({ status: 200, msg: `Carrito eliminado` });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+cartsRouter.delete('/:id/products/:prodId', async (req, res) => {
+  const { id, prodId } = req.params;
+  try {
+    const cart = await carts.deleteProdFromCart(id, prodId);
+    res
+      .status(200)
+      .json({ status: 200, data: cart, msg: `Producto eliminado` });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+module.exports = cartsRouter;

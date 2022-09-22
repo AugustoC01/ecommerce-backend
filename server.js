@@ -1,20 +1,16 @@
 const express = require('express');
-const routerProducts = require('./routers/products');
-const routerCart = require('./routers/cart');
+const prodsRouter = require('./routers/products');
+const cartsRouter = require('./routers/cart');
 
 const app = express();
 
 // MIDDLEWARES
-app.use(express.join());
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ROUTER
-app.use('/api/products', routerProducts);
-app.use('/api/cart', routerCart);
-
-server.on('error', (error) => {
-  console.log(`Server error ${error}`);
-});
+app.use('/api/products', prodsRouter);
+app.use('/api/cart', cartsRouter);
 
 // ATRAPA RUTAS NO IMPLEMENTADAS
 app.use((req, res) => {
@@ -24,5 +20,8 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, () => {
-  console.log(`Server on https://localhost:${PORT}/`);
+  console.log(`Server on http://localhost:${PORT}/`);
+});
+server.on('error', (error) => {
+  console.log(`Server error ${error}`);
 });

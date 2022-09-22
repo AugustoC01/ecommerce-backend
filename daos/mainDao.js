@@ -1,4 +1,4 @@
-const cartDao = require('./cartDao');
-const productsDao = require('./productsDao');
+const CartsDao = require('./cartsDao');
+const ProductsDao = require('./productsDao');
 
-module.exports = { cartDao, productsDao };
+module.exports = { CartsDao, ProductsDao };

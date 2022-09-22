@@ -1,35 +1,40 @@
 const express = require('express');
-const productsDao = require('../daos/mainDao');
-const prodRouter = express.Router();
+const { ProductsDao } = require('../daos/mainDao');
+const prodsRouter = express.Router();
 
-const products = new productsDao();
+const products = new ProductsDao();
 const isAdmin = true;
 
-prodRouter.get('/', async (req, res) => {
-  const productsData = await products.getAll();
-  /* productsData.length === 0
-    ? res.json({ msg: 'No hay productos disponibles' })
-    : res.json(productsData); */
-  console.log(productsData);
-});
-
-prodRouter.get('/:id', async (req, res) => {
-  const { id } = req.params;
+prodsRouter.get('/', async (req, res) => {
   try {
-    const productData = await products.getById(id);
-    if (productData) {
-      res.json(productData);
-    }
-  } catch (error) {
-    if (TypeError) {
-      res.json({ msg: 'Producto no encontrado' });
-    } else {
-      console.log(error);
-    }
+    const productsData = await products.getAll();
+    productsData.length !== 0
+      ? res
+          .status(200)
+          .json({ status: 200, data: productsData, msg: 'Producto encontrado' })
+      : res
+          .status(404)
+          .json({ status: 404, msg: 'No hay productos disponibles' });
+  } catch (e) {
+    console.log(e);
   }
 });
 
-prodRouter.post(
+prodsRouter.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const productData = await products.getById(id);
+    productData
+      ? res
+          .status(200)
+          .json({ status: 200, data: productData, msg: 'Producto encontrado' })
+      : res.status(404).json({ status: 404, msg: 'Producto no encontrado' });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+prodsRouter.post(
   '/',
   (req, res, next) => {
     if (isAdmin) {
@@ -40,14 +45,16 @@ prodRouter.post(
   },
   async (req, res) => {
     const { body } = req;
-    body.id = await products.getNewId();
-    body.timestamp = new Date().toLocaleString();
-    await products.save(body);
-    res.json({ msg: 'Producto creado', prod: body });
+    try {
+      await products.save(body);
+      res.status(200).json({ status: 200, data: body, msg: 'Producto creado' });
+    } catch (e) {
+      console.log(e);
+    }
   }
 );
 
-prodRouter.put(
+prodsRouter.put(
   '/:id',
   (req, res, next) => {
     if (isAdmin) {
@@ -59,14 +66,26 @@ prodRouter.put(
   async (req, res) => {
     const { id } = req.params;
     const { body } = req;
-    let productToUpdate = await products.getById(id);
-    productToUpdate = { ...productToUpdate, ...body };
-    await products.update(productToUpdate);
-    res.json(productToUpdate);
+    try {
+      const update = await products.updateById(id, body);
+      const updatedProd = await products.getById(id);
+      update.upsertedCount === 1
+        ? res.status(200).json({
+            status: 200,
+            data: updatedProd,
+            msg: 'Producto actualizado',
+          })
+        : res.status(404).json({
+            status: 404,
+            msg: 'Producto no actualizado',
+          });
+    } catch (e) {
+      console.log(e);
+    }
   }
 );
 
-prodRouter.delete(
+prodsRouter.delete(
   '/:id',
   (req, res, next) => {
     if (isAdmin) {
@@ -80,7 +99,17 @@ prodRouter.delete(
   },
   async (req, res) => {
     const { id } = req.params;
-    await products.deleteById(id);
-    res.json({ msg: `Producto ${id} eliminado` });
+    try {
+      const deleted = await products.deleteById(id);
+      deleted.deletedCount === 1
+        ? res
+            .status(200)
+            .json({ status: 200, data: deleted, msg: `Producto eliminado` })
+        : res.status(404).json({ status: 404, msg: `Producto no eliminado` });
+    } catch (e) {
+      console.log(e);
+    }
   }
 );
+
+module.exports = prodsRouter;
