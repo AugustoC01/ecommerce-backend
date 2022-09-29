@@ -1,0 +1,108 @@
+/* ESTILO DEL NAVBAR */
+.navbar {
+  background-color: darkorange;
+  text-align: center;
+  height: 8vh;
+  font-size: 1.5rem;
+}
+.navbar a {
+  color: white;
+  margin: 2rem;
+}
+/* ESTILOS DE FORMULARIO DE PRODUCTOS */
+.form-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  border: outset deepskyblue;
+  margin: 1rem 30rem;
+}
+.prod-form {
+  display: flex;
+  flex-direction: column;
+}
+.form-label,
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+.form-btn {
+  margin: 0.5rem auto;
+  padding: 0 0.2rem;
+}
+/* ESTILOS DE PRODUCTOS */
+.products-title {
+  text-align: center;
+}
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 1rem 3rem;
+}
+.prod-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: outset deepskyblue;
+}
+.product-img {
+  width: 300px;
+  max-width: 300px;
+  height: 200px;
+  max-height: 200px;
+}
+/* ESTILOS DEL CHAT */
+.chat-container {
+  width: 65vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 0 5rem 5rem;
+  box-shadow: -0.5rem 0.5rem 2rem black;
+  align-items: center;
+}
+.chat-title {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  background: darkorange;
+  color: white;
+  text-align: center;
+}
+.user {
+  font-weight: bold;
+  color: blue;
+}
+.date {
+  color: #964b00;
+}
+.msg {
+  color: green;
+  font-style: italic;
+}
+.chat-input {
+  border: solid darkorange;
+  border-width: 0 0 0.2rem 0;
+  font-size: 1rem;
+  margin: 0.5rem;
+}
+.btn {
+  color: white;
+  background-color: darkorange;
+  border: solid darkorange;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+.btn:hover {
+  background-color: grey;
+  border: solid grey;
+}
+/* ESTILO DEL FOOTER */
+.footer {
+  text-align: center;
+  margin: 1rem 0 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
