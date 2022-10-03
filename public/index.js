@@ -1,57 +1,75 @@
 const socket = io();
 
+// FUNCION DENORMALIZR
+const denormalizeMsg = (data) => {
+  const authorSchema = new normalizr.schema.Entity('authors');
+  const messageSchema = new normalizr.schema.Entity('messages', {
+    author: authorSchema,
+  });
+  const chatSchema = new normalizr.schema.Entity('chats', {
+    chats: [messageSchema],
+  });
+
+  const denormalizeData = normalizr.denormalize(
+    data.result,
+    chatSchema,
+    data.entities
+  );
+  return denormalizeData;
+};
+
+/* const chatData = denormalizedChat.chats.reduce(
+  (chatMsgs, newMsg) =>
+    chatMsgs +
+    `
+  <tr>
+  <td> <p class='user'>${newMsg.author.id}</p> </td>
+  <td> <p class='date'>[${newMsg.timestamp}] :</p> </td>
+  <td> <p class='msg'>${newMsg.text}<p/> </td>
+  <td> <img class='avatar' src="${newMsg.author.avatar}" alt="avatar"> </td>
+  </tr>`,
+  ''
+); */
+
 socket.on('chatData', (data) => {
-  const chatData = data.reduce(
-    (chatMsgs, newMsg) =>
+  const denormalizedChat = denormalizeMsg(data);
+  const chatData = denormalizedChat.chats.reduce(function (chatMsgs, newMsg) {
+    const timestamp = new Date(newMsg.timestamp).toLocaleString();
+    const chat =
       chatMsgs +
       `
     <tr>
-    <td> <p class='user'>${newMsg.user}</p> </td>
-    <td> <p class='date'>[${newMsg.timestamp}] :</p> </td>
-    <td> <p class='msg'>${newMsg.msg}<p/> </td>
-    </tr>`,
-    ''
-  );
-  document.getElementById('msg-list').innerHTML = chatData;
-});
+    <td> <p class='user'>${newMsg.author.id}</p> </td>
+    <td> <p class='date'>[${timestamp}] :</p> </td>
+    <td> <p class='msg'>${newMsg.text}<p/> </td>
+    <td> <img class='avatar' src="${newMsg.author.avatar}" alt="avatar"> </td>
+    </tr>`;
+    return chat;
+  }, '');
+  const compression =
+    (JSON.stringify(data).length * 100) /
+    JSON.stringify(denormalizedChat).length;
 
-socket.on('productsData', (data) => {
-  const prodData = data.reduce(
-    (products, newProd) =>
-      products +
-      `
-    <div class='prod-container'>
-    <p>${newProd.id}</p>
-    <p>${newProd.title}</p>
-    <p>$${newProd.price}</p>
-    <img src='${newProd.thumbnail}' class='product-img'/>
-    </div>`,
-    ''
-  );
-  document.getElementById('products-list').innerHTML = prodData;
+  document.getElementById(
+    'chat-compression'
+  ).innerHTML = `(Compresión: ${compression.toFixed(2)}%)`;
+
+  document.getElementById('msg-list').innerHTML = chatData;
 });
 
 function sendMsg(chatData) {
   let messageToAdd = {
     author: {
-      email: chatData.user.value,
-      nombre: 'nombre del usuario',
-      apellido: 'apellido del usuario',
-      edad: 'edad del usuario',
-      alias: 'alias del usuario',
-      avatar: 'url avatar (foto, logo) del usuario',
+      id: chatData.mail.value,
+      name: chatData.name.value,
+      surmame: chatData.surname.value,
+      age: chatData.age.value,
+      alias: chatData.alias.value,
+      avatar: chatData.avatar.value,
     },
+    timestamp: new Date(),
     text: chatData.msg.value,
   };
 
   socket.emit('chatMsg', messageToAdd);
 }
-
-/* function sendProd(prodData) {
-  let prodToAdd = {
-    title: prodData.title.value,
-    price: prodData.price.value,
-    thumbnail: prodData.thumbnail.value,
-  };
-  socket.emit('addProd', prodToAdd);
-} */

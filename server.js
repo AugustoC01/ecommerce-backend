@@ -1,28 +1,26 @@
 const express = require('express');
-const { Router } = express;
 const { engine } = require('express-handlebars');
-
 const app = express();
-const router = Router();
+const prodsRouter = require('./routers/products');
+const chatRouter = require('./routers/messages');
+const notImplemented = require('./controllers/notImplemented');
 
 //IMPLEMENTACION DE IO
+const socketConnection = require('./utils/socket.io');
 const httpServer = require('http').createServer(app);
-const io = require('socket.io')(httpServer);
-
-const PORT = process.env.PORT || 8080;
-
-httpServer.listen(PORT, () => console.log(`SERVER ON PORT ${PORT}`));
-
-httpServer.on('error', (error) => {
-  `Error en el servidor ${error}`;
-});
+socketConnection(httpServer);
 
 // MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(__dirname + '/public'));
-app.use('/api/products', router);
+// ROUTERS
+app.use('/api/products-test', prodsRouter);
+app.use('/api/chat', chatRouter);
+// ATRAPA RUTAS NO IMPLEMENTADAS
+app.use(notImplemented);
 
+// HBS CONFIG
 app.set('view engine', 'hbs');
 app.set('views', './views');
 app.engine(
@@ -35,40 +33,13 @@ app.engine(
   })
 );
 
-// IMPORTACION DE LA CLASE CONTENEDOR
-const Contenedor = require('./Contenedor.js');
-const { optionsDB } = require('./options/mariaDB');
-const { optionsSQ } = require('./options/SQLite3');
-const products = new Contenedor('products', optionsDB);
-const chatHistory = new Contenedor('chatHistory', optionsSQ);
+//SERVER
+const PORT = process.env.PORT || 8080;
 
-// RUTA
-app.get('/api/productos-test', (req, res) => {
-  res.render('productsList');
-});
+httpServer.listen(PORT, () =>
+  console.log(`SERVER ON PORT http://localhost:${PORT}/`)
+);
 
-//IMPLEMENTACION DEL SOCKET
-io.on('connection', async (socket) => {
-  const chatData = await chatHistory.getAll();
-  const productsData = await products.getAll();
-  io.sockets.emit('chatData', chatData);
-  io.sockets.emit('productsData', productsData);
-
-  // SI EL METODO DEVUELVE [], MUESTRO QUE NO SE ENCONTRO, SINO MUESTRO EL OBJETO
-  const exampleProd = await products.getById(100);
-  Object.keys(exampleProd).length == 0
-    ? console.log('No se encontró información')
-    : console.log(exampleProd);
-
-  socket.on('chatMsg', async (msg) => {
-    await chatHistory.save(msg);
-    const chatData = await chatHistory.getAll();
-    io.sockets.emit('chatData', chatData);
-  });
-
-  socket.on('addProd', async (data) => {
-    await products.save(data);
-    const productsData = await products.getAll();
-    io.sockets.emit('productsData', productsData);
-  });
+httpServer.on('error', (error) => {
+  `Error en el servidor ${error}`;
 });

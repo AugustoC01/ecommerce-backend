@@ -9,28 +9,7 @@
   color: white;
   margin: 2rem;
 }
-/* ESTILOS DE FORMULARIO DE PRODUCTOS */
-.form-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  border: outset deepskyblue;
-  margin: 1rem 30rem;
-}
-.prod-form {
-  display: flex;
-  flex-direction: column;
-}
-.form-label,
-.form-input {
-  display: flex;
-  flex-direction: column;
-}
-.form-btn {
-  margin: 0.5rem auto;
-  padding: 0 0.2rem;
-}
+
 /* ESTILOS DE PRODUCTOS */
 .products-title {
   text-align: center;
@@ -53,23 +32,26 @@
   height: 200px;
   max-height: 200px;
 }
+
 /* ESTILOS DEL CHAT */
 .chat-container {
-  width: 65vw;
-  margin: auto;
   display: flex;
   flex-direction: column;
-  border-radius: 0 0 5rem 5rem;
-  box-shadow: -0.5rem 0.5rem 2rem black;
   align-items: center;
+  margin: 1rem auto;
 }
-.chat-title {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  background: darkorange;
-  color: white;
-  text-align: center;
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  padding: 1rem 0;
 }
+.msg-list {
+  background-color: lightgray;
+  width: 60vw;
+  text-align: initial;
+}
+
 .user {
   font-weight: bold;
   color: blue;
@@ -81,11 +63,16 @@
   color: green;
   font-style: italic;
 }
+.avatar {
+  max-width: 5rem;
+  border-radius: 2rem;
+}
+
 .chat-input {
-  border: solid darkorange;
-  border-width: 0 0 0.2rem 0;
   font-size: 1rem;
-  margin: 0.5rem;
+  padding: 0.3rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.25rem;
 }
 .btn {
   color: white;
@@ -99,6 +86,7 @@
   background-color: grey;
   border: solid grey;
 }
+
 /* ESTILO DEL FOOTER */
 .footer {
   text-align: center;
