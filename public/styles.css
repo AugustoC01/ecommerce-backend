@@ -1,0 +1,132 @@
+/* ESTILO DEL NAVBAR */
+.navbar {
+  background-color: darkorange;
+  text-align: center;
+  height: 8vh;
+  font-size: 1.5rem;
+}
+.navbar a {
+  color: white;
+  margin: 2rem;
+}
+
+/* ESTILOS DE PRODUCTOS */
+.products-title {
+  text-align: center;
+}
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 1rem 3rem;
+}
+.prod-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: outset deepskyblue;
+}
+.product-img {
+  width: 300px;
+  max-width: 300px;
+  height: 200px;
+  max-height: 200px;
+}
+
+/* ESTILOS DEL CHAT */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+}
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  padding: 1rem 0;
+}
+.msg-list {
+  background-color: lightgray;
+  width: 60vw;
+  text-align: initial;
+}
+.user {
+  font-weight: bold;
+  color: blue;
+}
+.date {
+  color: #964b00;
+}
+.msg {
+  color: green;
+  font-style: italic;
+}
+.avatar {
+  max-width: 5rem;
+  border-radius: 2rem;
+}
+.form-input {
+  font-size: 1rem;
+  padding: 0.3rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.25rem;
+}
+.btn {
+  color: white;
+  background-color: darkorange;
+  border: solid darkorange;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+.btn:hover {
+  background-color: grey;
+  border: solid grey;
+}
+
+/* ESTILO DEL LOGIN */
+.login-div {
+  width: 50vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: lightgray;
+  padding: 2rem;
+  margin: 5rem auto;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+.login-input {
+  border: solid darkorange;
+  border-width: 0 0 0.2rem 0;
+  margin: 0.5rem;
+}
+.log-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: lightgreen;
+  color: darkgreen;
+}
+.logout-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: lightblue;
+  color: blue;
+}
+
+/* ESTILO DEL FOOTER */
+.footer {
+  text-align: center;
+  margin: 1rem 0 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
