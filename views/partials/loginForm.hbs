@@ -1,8 +1,10 @@
 <div class='login-div'>
   <h1 class='login-title'>Login de usuario</h1>
-  <form method='POST' class='login-form'>
-    <label for='name'>Ingrese su nombre</label>
-    <input type='text' name='name' id='name' class='form-input' />
-    <input type='submit' class='btn' value='Ingresar' />
+  <form action='/{{submitAction}}' method='POST' class='login-form'>
+    <input type='email' name='mail' id='mail' class='form-input' />
+    <button type='submit' class='btn' value='{{submitBtn}}'></button>
+  </form>
+  <form action='/{{redirectAction}}' method='GET' class='login-form'>
+    <button type='submit' class='btn' value='{{redirectBtn}}'></button>
   </form>
 </div>

@@ -1,18 +1,22 @@
 const express = require('express');
-const { engine } = require('express-handlebars');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const app = express();
+// -------EXPRESS MONGOSTORE Y HBS-------
+const { engine } = require('express-handlebars');
+const MongoStore = require('connect-mongo');
+// -------IMPORT ROUTERS-------
 const notImplemented = require('./controllers/checkController');
 const prodsRouter = require('./routers/products');
 const loginRouter = require('./routers/login');
-
-//IMPLEMENTACION DE IO
+//-------IMPORT DE SESSION Y PASSPORT-------
+const session = require('express-session');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+// -------IMPLEMENTACION DE IO-------
 const socketConnection = require('./utils/socket.io');
 const httpServer = require('http').createServer(app);
 socketConnection(httpServer);
 
-// MIDDLEWARES
+// -------MIDDLEWARES-------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(__dirname + '/public'));
@@ -35,13 +39,12 @@ app.use(
     },
   })
 );
-// ROUTERS
+// -------ROUTERS-------
 app.use(loginRouter);
 app.use(prodsRouter);
-// ATRAPA RUTAS NO IMPLEMENTADAS
 app.use(notImplemented);
 
-// HBS CONFIG
+// -------HBS CONFIG-------
 app.set('view engine', 'hbs');
 app.set('views', './views');
 app.engine(
@@ -54,7 +57,7 @@ app.engine(
   })
 );
 
-//SERVER
+//-------SERVER-------
 const PORT = process.env.PORT || 8080;
 
 httpServer.listen(PORT, () =>

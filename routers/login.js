@@ -4,9 +4,12 @@ const {
   login,
   handleLogin,
   handleLogout,
+  register,
 } = require('../controllers/loginController');
 
 loginRouter.get('/login', login);
+
+loginRouter.get('/register', register);
 
 loginRouter.post('/login', handleLogin);
 

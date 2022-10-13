@@ -1,7 +1,7 @@
-let name = '';
+let mail = '';
 
 const isLogued = (req, res, next) => {
-  if (req.session.name) {
+  if (req.session.mail) {
     next();
   } else {
     res.status(200).redirect('http://localhost:8080/logout');
@@ -9,17 +9,34 @@ const isLogued = (req, res, next) => {
 };
 
 const handleLogout = (req, res, next) => {
-  res.status(200).render('mainLogout', { name: name });
+  res.status(200).render('mainLogout', { mail: mail });
 };
 
 const login = (req, res) => {
-  res.status(200).render('mainLogin');
+  res.status(200).render('mainLogin', {
+    submitAction: 'login',
+    submitBtn: 'Ingresar',
+    redirectAction: 'register',
+    redirectBtn: 'Registrarse',
+  });
+};
+
+const register = (req, res) => {
+  res.status(200).render('mainLogin', {
+    submitAction: 'register',
+    submitBtn: 'Registrarse',
+    redirectAction: 'login',
+    redirectBtn: 'Ingresar',
+  });
 };
 
 const handleLogin = (req, res) => {
-  name = req.body.name;
-  req.session.name = name;
+  mail = req.body.mail;
+  req.session.mail = mail;
   res.status(200).redirect('/api/products-test');
 };
 
-module.exports = { login, handleLogin, isLogued, handleLogout };
+/* {errorAction:'login', errorMsg:'ERROR AL INGRESAR'}
+{errorAction:'register', errorMsg:'ERROR AL REGISTARSE'} */
+
+module.exports = { login, register, handleLogin, isLogued, handleLogout };
