@@ -1,21 +1,22 @@
 const express = require('express');
 const app = express();
-// -------EXPRESS MONGOSTORE Y HBS-------
+// -------EXPRESS MONGOSTORE, HBS-------
 const { engine } = require('express-handlebars');
 const MongoStore = require('connect-mongo');
 // -------IMPORT ROUTERS-------
 const notImplemented = require('./controllers/checkController');
-const prodsRouter = require('./routers/products');
-const loginRouter = require('./routers/login');
+const prodsRouter = require('./routes/products');
+const authRouter = require('./routes/auth');
 //-------IMPORT DE SESSION Y PASSPORT-------
 const session = require('express-session');
-const passport = require('passport');
-const localStrategy = require('passport-local').Strategy;
+const usersDb = require('./daos/mainDao');
+const passport = require('./passport/passport');
 // -------IMPLEMENTACION DE IO-------
-const socketConnection = require('./utils/socket.io');
+const socketConnection = require('./utils/socket/socket.io');
 const httpServer = require('http').createServer(app);
 socketConnection(httpServer);
-
+// -------CONEXION A DB-------
+usersDb;
 // -------MIDDLEWARES-------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -39,11 +40,13 @@ app.use(
     },
   })
 );
+// -------PASSPORT-------
+app.use(passport.initialize());
+app.use(passport.session());
 // -------ROUTERS-------
-app.use(loginRouter);
+app.use(authRouter);
 app.use(prodsRouter);
 app.use(notImplemented);
-
 // -------HBS CONFIG-------
 app.set('view engine', 'hbs');
 app.set('views', './views');

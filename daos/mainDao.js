@@ -1,3 +1,4 @@
 const MessagesDao = require('./messagesDao');
+const usersDb = require('./usersDao');
 
-module.exports = { MessagesDao };
+module.exports = { MessagesDao, usersDb };

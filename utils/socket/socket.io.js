@@ -1,4 +1,4 @@
-const { MessagesDao } = require('../daos/mainDao');
+const { MessagesDao } = require('../../daos/mainDao');
 const normalizeMsg = require('./socket.io.controller');
 
 const Messages = new MessagesDao();

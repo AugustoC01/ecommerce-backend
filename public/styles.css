@@ -90,11 +90,27 @@
   width: 50vw;
   height: 20vh;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-direction: row;
   background-color: lightgray;
   padding: 2rem;
   margin: 5rem auto;
+  align-items: center;
+  justify-content: space-around;
+}
+.input-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.divisor-div {
+  height: 90%;
+  border-right: solid darkslategrey 0.15rem;
+}
+.redirect-div button {
+  margin: auto;
+}
+.redirect-div p {
+  font-size: 1.5rem;
 }
 .login-form {
   display: flex;
@@ -110,6 +126,7 @@
 }
 .log-div {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 1rem;
   background-color: lightgreen;
@@ -121,6 +138,21 @@
   padding: 1rem;
   background-color: lightblue;
   color: blue;
+}
+.login-error {
+  width: 60vw;
+  display: flex;
+  justify-content: center;
+  background-color: darkslategrey;
+  color: white;
+  margin: 2rem auto;
+  padding: 5rem 2rem;
+  font-size: 1.3rem;
+}
+.login-error button {
+  display: flex;
+  font-size: 1.2rem;
+  margin: 2rem auto 0;
 }
 
 /* ESTILO DEL FOOTER */
