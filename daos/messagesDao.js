@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const config = require('./config/msgFirebaseConfig.json');
+const { config } = require('../config');
 
 class MessagesDao {
   constructor() {
