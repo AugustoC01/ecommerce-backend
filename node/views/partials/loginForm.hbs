@@ -1,0 +1,17 @@
+<div class='login-div'>
+  <div class='input-div'>
+    <h1 class='login-title'>{{title}}</h1>
+    <form action='/{{submitAction}}' method='POST' class='login-form'>
+      <input type='text' name='username' id='username' class='form-input' />
+      <input type='password' name='password' id='password' class='form-input' />
+      <button type='submit' class='btn'>{{title}}</button>
+    </form>
+  </div>
+  <div class='divisor-div'></div>
+  <div class='redirect-div'>
+    <form action='/{{redirectAction}}' method='GET' class='login-form'>
+      <p>Ir a {{redirectBtn}}</p>
+      <button type='submit' class='btn'>{{redirectBtn}}</button>
+    </form>
+  </div>
+</div>

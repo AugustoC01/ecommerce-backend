@@ -1,0 +1,24 @@
+comandos nodemon
+npm start  (arranca por defecto en puerto 8080 y en modo fork)
+npm start --port 8081 (arranca en puerto 8081 y en modo fork)
+npm start --port 8081 --mode cluster (arranca en puerto 8081 y modo cluster)
+npm start -- --mode cluster (arranca en puerto 8080 y modo cluster)
+
+comandos forever
+forever -w start server.js (arranca por defecto en puerto 8080 y en modo fork)
+forever -w start server.js --port 8081 (arranca en puerto 8081 y en modo fork)
+forever -w start server.js -- --mode cluster (arranca en puerto 8080 y modo cluster)
+forever -w start server.js --port 8081 --mode cluster (arranca en puerto 8081 y modo cluster)
+
+comandos pm2  (cambie el comando que usamos para cluster en clase porque en la documentacion decia que esta deprecado)
+pm2 start server.js --name="forkApp" --watch (arranca el server en modo fork en puerto 8080)
+pm2 start server.js --name="forkApp" --watch -- --port 8081 (arranca el server en modo fork en puerto 8081)
+pm2 start server.js --name="clusterApp" --watch -i 0 (arranca el server en puerto 8080 en modo cluster)
+pm2 start server.js --name="clusterApp" --watch -i 0 -- --port 8081  (arranca el server en puerto 8081 en modo cluster)
+
+nginx
+pm2 start server.js --name="randomCluster2" --watch -i 0 -- --port 8082
+pm2 start server.js --name="randomCluster3" --watch -i 0 -- --port 8083
+pm2 start server.js --name="randomCluster4" --watch -i 0 -- --port 8084
+pm2 start server.js --name="randomCluster5" --watch -i 0 -- --port 8085
+pm2 start server.js --name="app" --watch
