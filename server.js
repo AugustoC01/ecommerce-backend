@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
-// -------EXPRESS MONGOSTORE, HBS, YARGS, DOTENV-------
+
+app.enable('trust proxy');
+
+// -------HBS, DOTENV-------
 const { engine } = require('express-handlebars');
-const MongoStore = require('connect-mongo');
 const dotenv = require('dotenv');
 require('dotenv').config();
-const yargs = require('yargs/yargs')(process.argv.slice(2));
-const args = yargs.default({ port: 8080 }).argv;
 // -------IMPORT ROUTERS-------
 const notImplemented = require('./controllers/checkController');
 const prodsRouter = require('./routes/products');
@@ -14,12 +14,11 @@ const authRouter = require('./routes/auth');
 const infoRouter = require('./routes/info');
 const randomRouter = require('./routes/random');
 //-------IMPORT DE SESSION Y PASSPORT-------
-const { MONGO_URL } = require('./config');
-const session = require('express-session');
+const session = require('./helpers/session/session');
 const usersDb = require('./daos/mainDao');
-const passport = require('./passport/passport');
+const passport = require('./helpers/passport/passport');
 // -------IMPLEMENTACION DE IO-------
-const socketConnection = require('./utils/socket/socket.io');
+const socketConnection = require('./helpers/socket/socket.io');
 const httpServer = require('http').createServer(app);
 socketConnection(httpServer);
 // -------CONEXION A DB-------
@@ -28,24 +27,7 @@ usersDb;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(__dirname + '/public'));
-app.use(
-  session({
-    store: MongoStore.create({
-      mongoUrl: MONGO_URL,
-      mongoOptions: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-    }),
-    secret: 'A secret',
-    resave: false,
-    saveUninitialized: false,
-    rolling: true,
-    cookie: {
-      maxAge: 600000,
-    },
-  })
-);
+app.use(session);
 // -------PASSPORT-------
 app.use(passport.initialize());
 app.use(passport.session());
@@ -68,12 +50,9 @@ app.engine(
   })
 );
 
-//-------SERVER-------
-const PORT = args.port;
-
-httpServer.listen(PORT, () =>
-  console.log(`SERVER ON PORT http://localhost:${PORT}/`)
-);
+//-------SERVER Y CLUSTER-------
+const clusterServer = require('./helpers/cluster/cluster');
+clusterServer(httpServer);
 
 httpServer.on('error', (error) => {
   `Error en el servidor ${error}`;

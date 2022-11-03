@@ -1,10 +1,10 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const User = require('../daos/models/userModel');
-const { createHash, isValidPass } = require('../utils/bcrypt/brycpt');
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("../../daos/models/userModel");
+const { createHash, isValidPass } = require("../bcrypt/brycpt");
 
 passport.use(
-  'login',
+  "login",
   new LocalStrategy((username, password, done) => {
     User.findOne({ username }, (err, user) => {
       if (err) {
@@ -28,7 +28,7 @@ passport.use(
 );
 
 passport.use(
-  'signup',
+  "signup",
   new LocalStrategy((username, password, done) => {
     User.findOne({ username }, (err, user) => {
       if (err) {
