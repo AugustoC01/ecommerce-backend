@@ -8,11 +8,14 @@ const { engine } = require('express-handlebars');
 const dotenv = require('dotenv');
 require('dotenv').config();
 // -------IMPORT ROUTERS-------
-const notImplemented = require('./controllers/checkController');
 const prodsRouter = require('./routes/products');
 const authRouter = require('./routes/auth');
 const infoRouter = require('./routes/info');
 const randomRouter = require('./routes/random');
+const {
+  infoLogger,
+  notImplemented,
+} = require('./controllers/helperController');
 //-------IMPORT DE SESSION Y PASSPORT-------
 const session = require('./helpers/session/session');
 const usersDb = require('./daos/mainDao');
@@ -32,6 +35,7 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 // -------ROUTERS-------
+app.use(infoLogger);
 app.use(authRouter);
 app.use(infoRouter);
 app.use(prodsRouter);

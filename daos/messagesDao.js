@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const { config } = require('../config');
+const { errorLogger } = require('../controllers/helperController');
 
 class MessagesDao {
   constructor() {
@@ -13,7 +14,7 @@ class MessagesDao {
       const db = admin.firestore();
       return db.collection('messages');
     } catch (e) {
-      console.log(e);
+      errorLogger(e.message);
     }
   }
 
@@ -22,7 +23,7 @@ class MessagesDao {
     try {
       await query.add(msg);
     } catch (e) {
-      console.log(e);
+      errorLogger(e.message);
     }
   }
 
@@ -41,7 +42,7 @@ class MessagesDao {
       });
       return messagesData;
     } catch (e) {
-      console.log(e);
+      errorLogger(e.message);
     }
   }
 }
