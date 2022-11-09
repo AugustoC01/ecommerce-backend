@@ -1,12 +1,11 @@
 const express = require('express');
 const app = express();
-
 app.enable('trust proxy');
-
-// -------HBS, DOTENV-------
+// -------HBS, DOTENV, COMPRESSION-------
 const { engine } = require('express-handlebars');
 const dotenv = require('dotenv');
 require('dotenv').config();
+const compression = require('compression');
 // -------IMPORT ROUTERS-------
 const prodsRouter = require('./routes/products');
 const authRouter = require('./routes/auth');
@@ -31,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(__dirname + '/public'));
 app.use(session);
+app.use(compression());
 // -------PASSPORT-------
 app.use(passport.initialize());
 app.use(passport.session());
@@ -54,9 +54,19 @@ app.engine(
   })
 );
 
-//-------SERVER Y CLUSTER-------
-const clusterServer = require('./helpers/cluster/cluster');
-clusterServer(httpServer);
+//-------CONFIG SERVER Y CLUSTER-------
+// const clusterServer = require('./helpers/cluster/cluster');
+// clusterServer(httpServer);
+//-------FIN CONFIG SERVER Y CLUSTER-------
+
+//TUVE QUE LEVANTAR EXPRESS SIN FORK NI CLUSTER YA QUE 0x NO SOPORTA FORK NI CLUSTER
+const yargs = require('yargs/yargs')(process.argv.slice(2));
+const args = yargs.default({ port: 8080 }).argv;
+const { port } = args;
+httpServer.listen(port, () => {
+  console.log(`SERVER ON PORT http://localhost:${port}/`);
+});
+//  ----- FIN EXPRESS PARA 0x ------
 
 httpServer.on('error', (error) => {
   `Error en el servidor ${error}`;

@@ -13,6 +13,7 @@ const getInfo = (req, res) => {
     FOLDER: process.cwd(),
     numCPUs: numCPUs,
   };
+  // console.log(data);
   res.status(200).render('mainInfo', data);
 };
 

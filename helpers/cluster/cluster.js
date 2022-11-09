@@ -5,14 +5,6 @@ const args = yargs.default({ port: 8080, mode: 'fork' }).argv;
 
 const { port, mode } = args;
 
-/* const clusterServer = (port, mode, httpServer) => {
-  httpServer.listen(port, () => {
-    clusterHandle(mode, httpServer);
-    console.log(`SERVER ON PORT http://localhost:${port}/`);
-  });
-};
-*/
-
 const clusterServer = (httpServer) => {
   httpServer.listen(port, () => {
     clusterHandle(mode, httpServer);
