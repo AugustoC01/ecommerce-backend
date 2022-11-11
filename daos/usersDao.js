@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { MONGO_URL } = require('../config');
 const { errorLogger } = require('../controllers/helperController');
 
-const db = mongoose
+const usersDb = mongoose
   .connect(MONGO_URL)
   // .then(() => console.log('Connected to DB'))
   .catch((e) => {
@@ -11,4 +11,4 @@ const db = mongoose
     throw 'can not connect to the db';
   });
 
-module.exports = db;
+module.exports = usersDb;
