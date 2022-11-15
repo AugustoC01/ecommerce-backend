@@ -2,7 +2,10 @@ const config = {
   type: process.env.FirebaseType,
   project_id: process.env.FirebaseProject_id,
   private_key_id: process.env.FirebasePrivate_key_id,
-  private_key: process.env.FirebasePrivate_key.replace(/\\n/g, '\n'),
+  private_key:
+    process.env.NODE_ENV === 'development'
+      ? process.env.FirebasePrivate_key
+      : process.env.FirebasePrivate_key.replace(/\\n/g, '\n'),
   client_email: process.env.FirebaseClient_email,
   client_id: process.env.FirebaseClient_id,
   auth_uri: process.env.FirebaseAuth_uri,
