@@ -4,7 +4,7 @@
   "description": "Proyecto backend",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js --port --mode"
+    "start": "node server.js"
   },
   "author": "Augusto",
   "license": "ISC",
