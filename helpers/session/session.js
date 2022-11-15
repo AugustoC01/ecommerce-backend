@@ -3,7 +3,7 @@ const MongoStore = require('connect-mongo');
 const { MONGO_URL } = require('../../config');
 
 const sessionConfig = session({
-  store: new MongoStore.create({
+  store: MongoStore.create({
     mongoUrl: MONGO_URL,
     mongoOptions: {
       useNewUrlParser: true,
