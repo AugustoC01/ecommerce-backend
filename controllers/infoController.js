@@ -1,6 +1,6 @@
 const yargs = require('yargs/yargs')(process.argv.slice(2));
 const args = yargs.argv;
-const numCPUs = args.mode === 'cluster' ? require('os').cpus().length : 2;
+const numCPUs = require('os').cpus().length;
 
 const getInfo = (req, res) => {
   const data = {
@@ -13,7 +13,6 @@ const getInfo = (req, res) => {
     FOLDER: process.cwd(),
     numCPUs: numCPUs,
   };
-  // console.log(data);
   res.status(200).render('mainInfo', data);
 };
 

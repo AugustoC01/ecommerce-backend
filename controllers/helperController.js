@@ -1,4 +1,3 @@
-const { transport } = require('winston');
 const logger = require('../helpers/logger/logger');
 
 const infoLogger = (req, res, next) => {

@@ -3,8 +3,7 @@ const app = express();
 app.enable('trust proxy');
 // -------HBS, DOTENV, COMPRESSION-------
 const { engine } = require('express-handlebars');
-const dotenv = require('dotenv');
-require('dotenv').config();
+const dotenv = require('dotenv').config();
 const compression = require('compression');
 // -------IMPORT ROUTERS-------
 const prodsRouter = require('./routes/products');
@@ -17,14 +16,11 @@ const {
 } = require('./controllers/helperController');
 //-------IMPORT DE SESSION Y PASSPORT-------
 const session = require('./helpers/session/session');
-const usersDb = require('./daos/mainDao');
 const passport = require('./helpers/passport/passport');
 // -------IMPLEMENTACION DE IO-------
 const socketConnection = require('./helpers/socket/socket.io');
 const httpServer = require('http').createServer(app);
 socketConnection(httpServer);
-// -------CONEXION A DB-------
-usersDb;
 // -------MIDDLEWARES-------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -54,19 +50,10 @@ app.engine(
   })
 );
 
-//-------CONFIG SERVER Y CLUSTER-------
-// const clusterServer = require('./helpers/cluster/cluster');
-// clusterServer(httpServer);
-//-------FIN CONFIG SERVER Y CLUSTER-------
-
-//TUVE QUE LEVANTAR EXPRESS SIN FORK NI CLUSTER YA QUE 0x NO SOPORTA FORK NI CLUSTER
-const yargs = require('yargs/yargs')(process.argv.slice(2));
-const args = yargs.default({ port: 8080 }).argv;
-const { port } = args;
-httpServer.listen(port, () => {
-  console.log(`SERVER ON PORT http://localhost:${port}/`);
+const PORT = process.env.PORT || 8080;
+httpServer.listen(PORT, () => {
+  console.log(`SERVER ON PORT http://localhost:${PORT}/`);
 });
-//  ----- FIN EXPRESS PARA 0x ------
 
 httpServer.on('error', (error) => {
   `Error en el servidor ${error}`;
