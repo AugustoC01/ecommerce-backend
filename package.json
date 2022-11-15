@@ -2,7 +2,7 @@
   "name": "heroku",
   "version": "0.0.0",
   "description": "Proyecto backend",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },

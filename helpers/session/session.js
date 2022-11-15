@@ -1,9 +1,9 @@
 const session = require('express-session');
-const MongoStore = require('connect-mongo').default;
+const MongoStore = require('connect-mongo');
 const { MONGO_URL } = require('../../config');
 
 const sessionConfig = session({
-  store: MongoStore.create({
+  store: new MongoStore.create({
     mongoUrl: MONGO_URL,
     mongoOptions: {
       useNewUrlParser: true,
