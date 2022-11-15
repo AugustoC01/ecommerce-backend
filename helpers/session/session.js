@@ -1,9 +1,13 @@
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo').default;
 const { MONGO_URL } = require('../../config');
 
 const sessionConfig = session({
   store: MongoStore.create({ mongoUrl: MONGO_URL }),
+  mongoOptions: {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
   secret: 'A secret',
   resave: false,
   saveUninitialized: false,
@@ -13,7 +17,7 @@ const sessionConfig = session({
   },
 });
 
-/*
+/* 
 const sessionConfig = session({
   store: MongoStore.create({mongoUrl: MONGO_URL}),
     mongoOptions: {
