@@ -5,10 +5,10 @@ const { MONGO_URL } = require('../../config');
 const sessionConfig = session({
   store: MongoStore.create({
     mongoUrl: MONGO_URL,
-    mongoOptions: {
+    /* mongoOptions: {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-    },
+    }, */
   }),
   secret: 'A secret',
   resave: false,
