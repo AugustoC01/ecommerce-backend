@@ -1,6 +1,6 @@
-const session = require("express-session");
-const MongoStore = require("connect-mongo");
-const { MONGO_URL } = require("../../config");
+const session = require('express-session');
+const MongoStore = require('connect-mongo').default;
+const { MONGO_URL } = require('../../config');
 
 const sessionConfig = session({
   store: MongoStore.create({
@@ -10,7 +10,7 @@ const sessionConfig = session({
       useUnifiedTopology: true,
     },
   }),
-  secret: "A secret",
+  secret: 'A secret',
   resave: false,
   saveUninitialized: false,
   rolling: true,
