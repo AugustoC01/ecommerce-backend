@@ -1,0 +1,16 @@
+<ul class='navbar'>
+  <li>
+    {{#if data.logued}}
+      <a href='/api/products-test'>Inicio</a>
+      <a href='/profile'>Perfil</a>
+      <a href='/api/cart'>
+        <img
+          src='https://github.com/AugustoC01/ecommerce-CannataFernandez/blob/main/public/images/cart.png?raw=true'
+          alt='cart'
+          style='width: 2rem;'
+        /></a>
+    {{else}}
+      <a href='/login'>Inicio</a>
+    {{/if}}
+  </li>
+</ul>

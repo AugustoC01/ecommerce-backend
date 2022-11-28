@@ -1,0 +1,13 @@
+{{>navbar data=data}}
+
+<div class='cart-container'>
+  {{#if cart}}
+  <h1 class='products-title'>Listado de productos</h1>
+  <div id='cart-list' class='cart-list'>
+    {{>cartList cart=.}}
+  </div>
+</div>
+{{else}}
+<h1>carrito vacio</h1>
+{{/if}}
+{{>footer}}

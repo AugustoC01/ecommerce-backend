@@ -1,0 +1,9 @@
+{{>navbar logued=logued}}
+
+{{#if profile}}
+{{>profile data=.}}
+{{else}}
+{{>info data=.}}
+{{/if}}
+
+{{>footer}}
