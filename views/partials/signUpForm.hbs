@@ -1,0 +1,63 @@
+<div class='login-div'>
+  <div class='input-div'>
+    <h1 class='login-title'>Registrarse</h1>
+    <form
+      action='/signup'
+      method='POST'
+      class='login-form'
+      enctype='multipart/form-data'
+    >
+      <input
+        type='text'
+        name='email'
+        id='email'
+        class='form-input'
+        placeholder='Correo'
+      />
+      <input
+        type='password'
+        name='password'
+        id='password'
+        class='form-input'
+        placeholder='Contraseña'
+      />
+      <input
+        type='text'
+        name='name'
+        id='name'
+        class='form-input'
+        placeholder='Nombre'
+      />
+      <input
+        type='text'
+        name='address'
+        id='address'
+        class='form-input'
+        placeholder='Direccion'
+      />
+      <input
+        type='number'
+        name='age'
+        id='age'
+        class='form-input'
+        placeholder='Edad'
+      />
+      <input
+        type='number'
+        name='phone'
+        id='phone'
+        class='form-input'
+        placeholder='Telefono'
+      />
+      <input type='file' name='avatar' id='avatar' class='form-input' />
+      <button type='submit' class='btn'>Registrarse</button>
+    </form>
+  </div>
+  <div class='divisor-div'></div>
+  <div class='redirect-div'>
+    <form action='/login' method='GET' class='login-form'>
+      <p>Ingresar</p>
+      <button type='submit' class='btn'> > </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+{{#each cart.products}}
+  <div class='cart-product'>
+    <p>{{this.title}}</p>
+    <p>${{this.price}}</p>
+    <form action='/cart/{{this.id}}' method='post'>
+      <button type='submit' class='btn'>Eliminar</button>
+    </form>
+  </div>
+{{/each}}
+<div class='cart-price'>
+  <h2>Total: ${{cart.total}}</h2>
+  <form action='/cart' method='POST'>
+    <button type='submit' class='btn'>Comprar</button>
+  </form>
+  {{! <button type='submit' class='btn'>Vaciar carrito</button> }}
+</div>

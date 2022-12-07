@@ -1,0 +1,217 @@
+/* ESTILO DEL NAVBAR */
+.navbar {
+  background-color: darkorange;
+  text-align: center;
+  height: 8vh;
+  font-size: 1.5rem;
+}
+.navbar a {
+  color: white;
+  margin: 2rem;
+}
+
+/* ESTILOS DE PRODUCTOS */
+.products-title {
+  text-align: center;
+}
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 1rem 3rem;
+}
+.prod-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: outset deepskyblue;
+}
+.product-img {
+  width: 300px;
+  max-width: 300px;
+  height: 200px;
+  max-height: 200px;
+}
+
+/* ESTILOS DEL CHAT */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+}
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  padding: 1rem 0;
+}
+.msg-list {
+  background-color: lightgray;
+  width: 60vw;
+  text-align: initial;
+}
+.user {
+  font-weight: bold;
+  color: blue;
+}
+.date {
+  color: #964b00;
+}
+.msg {
+  color: green;
+  font-style: italic;
+}
+.avatar {
+  max-width: 5rem;
+  border-radius: 2rem;
+}
+.form-input {
+  font-size: 1rem;
+  padding: 0.3rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.25rem;
+}
+.btn {
+  color: white;
+  background-color: darkorange;
+  border: solid darkorange;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+}
+.btn:hover {
+  background-color: grey;
+  border: solid grey;
+}
+
+/* ESTILO DEL LOGIN */
+.login-div {
+  width: 50vw;
+  height: 45vh;
+  display: flex;
+  flex-direction: row;
+  background-color: lightgray;
+  padding: 2rem;
+  margin: 5rem auto;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.input-div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.divisor-div {
+  height: 90%;
+  border-right: solid darkslategrey 0.15rem;
+}
+.redirect-div button {
+  margin: auto;
+}
+.redirect-div p {
+  font-size: 1.5rem;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+.login-input {
+  border: solid darkorange;
+  border-width: 0 0 0.2rem 0;
+  margin: 0.5rem;
+}
+.log-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: lightgreen;
+  color: darkgreen;
+}
+.logout-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: lightblue;
+  color: blue;
+}
+.login-error {
+  width: 60vw;
+  display: flex;
+  justify-content: center;
+  background-color: gray;
+  color: white;
+  margin: 2rem auto;
+  padding: 5rem 2rem;
+  font-size: 1.3rem;
+}
+.login-error button {
+  font-size: 1.2rem;
+}
+.form-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ESTILO DE LA TABLA INFO */
+.div-info {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem auto;
+  text-align: center;
+}
+.info-table,
+tr,
+td {
+  border: solid 1px black;
+}
+td {
+  padding: 0.1rem;
+}
+
+/* ESTILO DE PROFILE */
+.profile-table,
+tr,
+td {
+  border: solid 1px black;
+  text-align: initial;
+  width: 50vw;
+}
+.avatar-img {
+  width: 7rem;
+  height: 7rem;
+}
+
+/* ESTILO DEL CART */
+.cart-list {
+  width: 35vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.cart-product {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+
+  border: 0.25rem solid orange;
+  border-radius: 0 1rem/1rem;
+  box-shadow: 0.3rem 0.3rem darkviolet;
+  padding: 0.2rem;
+}
+
+/* ESTILO DEL FOOTER */
+.footer {
+  text-align: center;
+  margin: 1rem 0 0;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
