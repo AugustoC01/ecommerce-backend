@@ -1,6 +1,6 @@
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
-const { PORT, MODE } = require('../../config');
+const { PORT, MODE } = require('../config');
 const { errorLogger } = require('./logger');
 
 // nodemon server.js --port 8080               (MODO CLUSTER)

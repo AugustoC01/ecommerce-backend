@@ -2,7 +2,7 @@ const {
   TWILIO_WPP_NUM: WPP_NUM,
   TWILIO_SMS_NUM: SMS_NUM,
   TWILIO_MI_NUM: MI_NUM,
-} = require('../../config');
+} = require('../config');
 
 const { client, createTransport } = require('../middlewares/twilio');
 const { errorLogger } = require('../helpers/logger');

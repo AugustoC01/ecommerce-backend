@@ -1,6 +1,6 @@
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const { MONGO_URL: URL } = require('../../config');
+const { MONGO_URL: URL } = require('../config');
 const passport = require('./passport');
 
 const sessionConfig = session({

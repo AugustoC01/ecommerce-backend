@@ -1,6 +1,6 @@
 const winston = require('winston');
 const path = require('path');
-const { NODE_ENV } = require('../../config');
+const { NODE_ENV } = require('../config');
 
 let loggerConfig = {
   transports: [

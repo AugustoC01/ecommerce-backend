@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const { createHash, isValidPass } = require('../helpers/brycpt');
 const { errorLogger } = require('../helpers/logger');
 const Users = require('../models/userSchema');
-const { sendEmail } = require('./twilio');
+const { sendEmail } = require('../services/msgService');
 
 passport.use(
   'login',
@@ -59,7 +59,11 @@ passport.use(
             return done(err);
           }
           logger.info('User registration succesful');
-          sendEmail('Nuevo registro', JSON.stringify(newUser));
+          try {
+            sendEmail('Nuevo registro', JSON.stringify(newUser));
+          } catch (error) {
+            console.log('aca');
+          }
           return done(null, user);
         });
       }).clone();
