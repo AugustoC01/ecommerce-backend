@@ -1,8 +1,8 @@
 {
-  "name": "heroku",
+  "name": "test",
   "version": "0.0.0",
-  "description": "Proyecto backend",
-  "main": "server.js",
+  "description": "Backend project",
+  "main": "src/server.js",
   "scripts": {
     "start": "node server.js",
     "test": "nodemon server.js"
