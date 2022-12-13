@@ -1,24 +1,20 @@
-const {
-  newCart,
-  getCartById: getCart,
-  addProdToCart: addProd,
-  deleteCartById: deleteCart,
-  deleteProdFromCart: deletProd,
-} = require('../daos/cartsDao');
-const { addUserCart, resetUserCart } = require('../daos/userDao');
+const { CartsDao, UsersDao } = require('../daos/mainDao');
+const Carts = new CartsDao();
+const Users = new UsersDao();
+
 const { sendWpp, sendSms, sendEmail } = require('./msgService');
 
-const addProdToCart = async (cartId, userId, prodId) => {
+const addProd = async (cartId, userId, prodId) => {
   if (!cartId) {
-    cartId = await newCart(userId);
-    await addUserCart(userId, cartId);
+    cartId = await Carts.newCart(userId);
+    await Users.addUserCart(userId, cartId);
   }
-  await addProd(cartId, prodId);
+  await Carts.addProdToCart(cartId, prodId);
 };
 
 const getCartData = async (cartId) => {
   if (!cartId) return { logued: true, cart: false };
-  const cart = await getCart(cartId);
+  const cart = await Carts.getCartById(cartId);
   const productsList = cart.products;
   if (productsList.length == 0) return { logued: true, cart: false };
   const total = productsList.reduce((total, prod) => total + prod.price, 0);
@@ -38,16 +34,16 @@ const getCartData = async (cartId) => {
 };
 
 const removeProd = async (cartId, prodId) => {
-  await deletProd(cartId, prodId);
+  await Carts.deleteProdFromCart(cartId, prodId);
 };
 
 const removeAll = async (cartId) => {
-  await deleteCart(cartId);
-  await resetUserCart(cartId);
+  await Carts.deleteCartById(cartId);
+  await Users.resetUserCart(cartId);
 };
 
 const sendCartData = async (name, email, cartId) => {
-  cart = await getCartData(cartId);
+  const cart = await getCartData(cartId);
   const products = cart.products.reduce(
     (prods, prod) => prods + '' + prod.title,
     'Lista de productos:'
@@ -61,7 +57,7 @@ const sendCartData = async (name, email, cartId) => {
 };
 
 module.exports = {
-  addProdToCart,
+  addProd,
   getCartData,
   removeProd,
   removeAll,

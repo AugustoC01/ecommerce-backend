@@ -1,8 +1,7 @@
 const winston = require('winston');
 const path = require('path');
-const { NODE_ENV } = require('../config');
 
-let loggerConfig = {
+const loggerConfig = {
   transports: [
     new winston.transports.Console({ name: 'info-log', level: 'info' }),
     new winston.transports.File({
@@ -18,6 +17,6 @@ let loggerConfig = {
   ],
 };
 
-let logger = winston.createLogger(loggerConfig);
+const logger = winston.createLogger(loggerConfig);
 
 module.exports = { logger };

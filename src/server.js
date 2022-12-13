@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 app.enable('trust proxy');
 
-const { dbConn } = require('./daos/mongoConn');
-dbConn();
+const { dbConnect } = require('./daos/mongoConn');
+dbConnect();
+
 // -------IMPORT SESSION, HBS Y ROUTER-------
 const sessionMiddleware = require('./middlewares/session');
 const viewEngine = require('./middlewares/viewEngine');

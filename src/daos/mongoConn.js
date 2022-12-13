@@ -2,16 +2,23 @@ const mongoose = require('mongoose');
 const { MONGO_URL } = require('../config');
 const { logger, errorLogger } = require('../helpers/logger');
 
-const dbConn = () => {
-  mongoose
-    .connect(MONGO_URL, { useNewUrlParser: true })
-    .then(logger.info('db conectada'))
-    .catch((e) => errorLogger(e));
+const dbConnect = () => {
+  try {
+    mongoose.connect(MONGO_URL, { useNewUrlParser: true });
+    logger.info('db conectada');
+  } catch (e) {
+    console.log('no conecto');
+    errorLogger(e);
+  }
 };
 
-const dbDisconn = () => {
-  mongoose.connection.close();
-  logger.info('db desconectada');
+const dbDisconnect = () => {
+  try {
+    mongoose.connection.close();
+    logger.info('db desconectada');
+  } catch (e) {
+    errorLogger(e);
+  }
 };
 
-module.exports = { dbConn, dbDisconn };
+module.exports = { dbConnect, dbDisconnect };

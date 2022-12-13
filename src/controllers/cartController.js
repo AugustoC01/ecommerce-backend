@@ -1,6 +1,6 @@
 const {
   getCartData,
-  addProdToCart,
+  addProd,
   removeProd,
   removeAll,
   sendCartData,
@@ -9,8 +9,8 @@ const {
 const addToCart = async (req, res) => {
   let { cartId, _id: userId } = req.user;
   const { prodId } = req.params;
-  await addProdToCart(cartId, userId, prodId);
-  res.status(200).redirect('/api/products-test');
+  await addProd(cartId, userId, prodId);
+  res.status(200).redirect('/products');
 };
 
 const getCart = async (req, res) => {
