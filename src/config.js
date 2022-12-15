@@ -1,6 +1,11 @@
 const dotenv = require('dotenv').config();
 const yargs = require('yargs/yargs')(process.argv.slice(2));
-const args = yargs.default({ port: 8080, mode: 'cluster' }).argv;
+let args;
+if (process.env.NODE_ENV == 'test') {
+  return (args = yargs.default({ port: 8080, mode: 'fork' }).argv);
+} else {
+  return (args = yargs.default({ port: 8080, mode: 'cluster' }).argv);
+}
 
 const PORT = /* args.port || */ process.env.PORT || 8080;
 const MODE = args.mode;

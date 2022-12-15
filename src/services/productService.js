@@ -1,8 +1,9 @@
-const { ProductsDao } = require('../daos/mainDao');
-const Products = new ProductsDao();
+const { ProductsDao, Factory } = require('../daos/mainDao');
+const DaoFactory = new Factory();
+const Products = DaoFactory.createDao('Products');
 
 const getProducts = async () => {
-  const products = await Products.getAll();
+  const products = await ProductsDao.getAll();
   const productsData = products.map((prod) => {
     return {
       id: prod._id,
@@ -19,7 +20,33 @@ const getProducts = async () => {
 };
 
 const getProduct = async (id) => {
-  return await Products.getById(id);
+  const product = await ProductsDao.getById(id);
+  const productData = {
+    id: product._id,
+    title: product.title,
+    price: product.price,
+    thumbnail: product.thumbnail,
+  };
+  return productData;
 };
 
-module.exports = { getProducts, getProduct };
+const createProduct = async (prod) => {
+  const id = await Products.save(prod);
+  return id;
+};
+
+const updateProduct = async (id, data) => {
+  await Products.updateById(id, data);
+};
+
+const deleteProduct = async (id) => {
+  await Products.deleteById(id);
+};
+
+module.exports = {
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};

@@ -7,7 +7,7 @@ const signup = (req, res) => {
 };
 
 const accessRedirect = (req, res) => {
-  res.status(200).redirect('api/products-test');
+  res.status(200).redirect('/products');
 };
 
 const handleLogout = (req, res, next) => {

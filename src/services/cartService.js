@@ -1,6 +1,7 @@
-const { CartsDao, UsersDao } = require('../daos/mainDao');
-const Carts = new CartsDao();
-const Users = new UsersDao();
+const { Factory } = require('../daos/mainDao');
+const DaoFactory = new Factory();
+const Carts = DaoFactory.createDao('Carts');
+const Users = DaoFactory.createDao('Users');
 
 const { sendWpp, sendSms, sendEmail } = require('./msgService');
 

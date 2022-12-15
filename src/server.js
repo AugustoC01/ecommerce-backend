@@ -17,3 +17,7 @@ Router(app);
 const httpServer = require('http').createServer(app);
 const clusterHandle = require('./helpers/cluster');
 clusterHandle(httpServer);
+
+//CRUD POR CMD
+/* const ejecutarCmd = require('./helpers/cmdDao');
+ejecutarCmd(); */

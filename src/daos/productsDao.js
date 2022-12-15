@@ -1,19 +1,16 @@
 const { errorLogger } = require('../helpers/logger');
 const { Products } = require('../models/prodSchema');
+const { sendSms } = require('../services/msgService');
 
+let instance = null;
 class ProductsDao {
-  // GUARDA UN PRODUCTO NUEVO
-  async save(prod) {
-    try {
-      prod.timestamp = new Date().toLocaleString();
-      return await Products.create(prod);
-    } catch (e) {
-      errorLogger(e);
-    }
+  static getInstance() {
+    if (!instance) instance = new ProductsDao();
+    return instance;
   }
 
   // DEVUELVE TODOS LOS PRODUCTOS
-  async getAll() {
+  static async getAll() {
     try {
       return await Products.find({});
     } catch (e) {
@@ -22,9 +19,20 @@ class ProductsDao {
   }
 
   // DEVUELVE UN PRODUCTO O NULL SI NO ESTA
-  async getById(id) {
+  static async getById(id) {
     try {
       return await Products.findById(id);
+    } catch (e) {
+      errorLogger(e);
+    }
+  }
+
+  // GUARDA UN PRODUCTO NUEVO
+  async save(prod) {
+    try {
+      prod.timestamp = new Date().toLocaleString();
+      await Products.create(prod);
+      return prod._id;
     } catch (e) {
       errorLogger(e);
     }
@@ -49,22 +57,3 @@ class ProductsDao {
   }
 }
 module.exports = ProductsDao;
-
-/* let instance = null;
-class Singleton {
-  constructor() {
-    this.value = Math.random();
-  }
-  printValue() {
-    console.log(this.value);
-  }
-  static getInstance() {
-    if (!instance) {
-      instance = new Singleton();
-    }
-    return instance;
-  }
-} 
-
-const mySingleton = Singleton.getInstance()
-*/

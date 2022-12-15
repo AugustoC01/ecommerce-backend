@@ -1,8 +1,20 @@
 const { errorLogger } = require('../helpers/logger');
 const Carts = require('../models/cartSchema');
-const { getProduct } = require('../services/productService');
+const ProductsDao = require('./productsDao');
 
+let instance = null;
 class CartsDao {
+  //LLAMO AL DAO MAS DE 1 VEZ Y EL CONTADOR NO AUMENTA YA QUE
+  //DEVUELVE SIEMPRE LA MISMA INSTANCIA
+  /* constructor(n = 0) {
+    this.count = n + 1;
+  } */
+
+  static getInstance() {
+    if (!instance) instance = new CartsDao();
+    return instance;
+  }
+
   //CREA UN CARRITO Y DEVUELVE SU ID
   async newCart(userId) {
     try {
@@ -34,7 +46,7 @@ class CartsDao {
 
   async addProdToCart(cartId, prodId) {
     try {
-      const prod = await getProduct(prodId);
+      const prod = await ProductsDao.getById(prodId);
       return await Carts.findByIdAndUpdate(cartId, {
         $addToSet: { products: prod },
       });
@@ -45,7 +57,7 @@ class CartsDao {
 
   async deleteProdFromCart(cartId, prodId) {
     try {
-      const prod = await getProduct(prodId);
+      const prod = await ProductsDao.getById(prodId);
       return await Carts.findByIdAndUpdate(cartId, {
         $pull: { products: prod },
       });
