@@ -2,6 +2,7 @@ const { Factory } = require('../daos/mainDao');
 const DaoFactory = new Factory();
 const Carts = DaoFactory.createDao('Carts');
 const Users = DaoFactory.createDao('Users');
+const Products = DaoFactory.createDao('Products');
 
 const { sendWpp, sendSms, sendEmail } = require('./msgService');
 
@@ -10,7 +11,8 @@ const addProd = async (cartId, userId, prodId) => {
     cartId = await Carts.newCart(userId);
     await Users.addUserCart(userId, cartId);
   }
-  await Carts.addProdToCart(cartId, prodId);
+  const prod = await Products.getProdById(prodId);
+  await Carts.addProdToCart(cartId, prod);
 };
 
 const getCartData = async (cartId) => {
@@ -35,7 +37,8 @@ const getCartData = async (cartId) => {
 };
 
 const removeProd = async (cartId, prodId) => {
-  await Carts.deleteProdFromCart(cartId, prodId);
+  const prod = await Products.getProdById(prodId);
+  await Carts.deleteProdFromCart(cartId, prod);
 };
 
 const removeAll = async (cartId) => {

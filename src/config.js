@@ -1,13 +1,15 @@
 const dotenv = require('dotenv').config();
 const yargs = require('yargs/yargs')(process.argv.slice(2));
+
 let args;
 if (process.env.NODE_ENV == 'test') {
-  return (args = yargs.default({ port: 8080, mode: 'fork' }).argv);
+  args = yargs.default({ port: 8080, mode: 'fork' }).argv;
 } else {
-  return (args = yargs.default({ port: 8080, mode: 'cluster' }).argv);
+  args = yargs.default({ port: 8080, mode: 'cluster' }).argv;
 }
 
-const PORT = /* args.port || */ process.env.PORT || 8080;
+// HEROKU CAE CON EL ARGS.PORT, COMENTAR PARA DEPLOY EN HEROKU
+const PORT = args.port || process.env.PORT || 8080;
 const MODE = args.mode;
 const MONGO_URL = process.env.MONGO_URL;
 const NODE_ENV = process.env.NODE_ENV;

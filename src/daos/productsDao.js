@@ -1,6 +1,5 @@
 const { errorLogger } = require('../helpers/logger');
 const { Products } = require('../models/prodSchema');
-const { sendSms } = require('../services/msgService');
 
 let instance = null;
 class ProductsDao {
@@ -10,7 +9,7 @@ class ProductsDao {
   }
 
   // DEVUELVE TODOS LOS PRODUCTOS
-  static async getAll() {
+  async getAll() {
     try {
       return await Products.find({});
     } catch (e) {
@@ -19,7 +18,7 @@ class ProductsDao {
   }
 
   // DEVUELVE UN PRODUCTO O NULL SI NO ESTA
-  static async getById(id) {
+  async getById(id) {
     try {
       return await Products.findById(id);
     } catch (e) {

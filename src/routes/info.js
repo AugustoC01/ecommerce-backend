@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const infoRouter = Router();
-const { getInfo } = require('../controllers/infoController');
+const { showInfo } = require('../controllers/infoController');
 
-infoRouter.get('/info', getInfo);
+infoRouter.get('/info', showInfo);
 
 module.exports = infoRouter;

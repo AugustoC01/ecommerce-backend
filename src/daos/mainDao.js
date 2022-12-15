@@ -4,7 +4,7 @@ const UsersDao = require('./usersDao');
 
 class Factory {
   createDao(type) {
-    if (type == 'Product') return ProductsDao.getInstance();
+    if (type == 'Products') return ProductsDao.getInstance();
     if (type == 'Carts') return CartsDao.getInstance();
     if (type == 'Users') return UsersDao.getInstance();
   }

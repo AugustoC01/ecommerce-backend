@@ -1,8 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const Users = require('../models/userSchema');
 const { createHash, isValidPass } = require('../helpers/brycpt');
 const { errorLogger } = require('../helpers/logger');
-const Users = require('../models/userSchema');
 const { sendEmail } = require('../services/msgService');
 
 passport.use(
