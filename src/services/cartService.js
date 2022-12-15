@@ -11,7 +11,7 @@ const addProd = async (cartId, userId, prodId) => {
     cartId = await Carts.newCart(userId);
     await Users.addUserCart(userId, cartId);
   }
-  const prod = await Products.getProdById(prodId);
+  const prod = await Products.getById(prodId);
   await Carts.addProdToCart(cartId, prod);
 };
 
@@ -37,7 +37,7 @@ const getCartData = async (cartId) => {
 };
 
 const removeProd = async (cartId, prodId) => {
-  const prod = await Products.getProdById(prodId);
+  const prod = await Products.getById(prodId);
   await Carts.deleteProdFromCart(cartId, prod);
 };
 
