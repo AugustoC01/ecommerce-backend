@@ -1,3 +1,4 @@
+const { checkValue } = require('../helpers/checkValue');
 const { errorLogger } = require('../helpers/logger');
 const { Products } = require('../models/prodSchema');
 
@@ -8,7 +9,6 @@ class ProductsDao {
     return instance;
   }
 
-  // DEVUELVE TODOS LOS PRODUCTOS
   async getAll() {
     try {
       return await Products.find({});
@@ -17,7 +17,6 @@ class ProductsDao {
     }
   }
 
-  // DEVUELVE UN PRODUCTO O NULL SI NO ESTA
   async getById(id) {
     try {
       return await Products.findById(id);
@@ -26,9 +25,9 @@ class ProductsDao {
     }
   }
 
-  // GUARDA UN PRODUCTO NUEVO
   async save(prod) {
     try {
+      ProductsDao.validate(true, prod);
       prod.timestamp = new Date().toLocaleString();
       await Products.create(prod);
       return prod._id;
@@ -37,16 +36,15 @@ class ProductsDao {
     }
   }
 
-  // MODIFICA UN PRODUCTO
   async updateById(id, body) {
     try {
+      ProductsDao.validate(false, body);
       return await Products.updateOne({ _id: id }, { $set: body });
     } catch (e) {
       errorLogger(e);
     }
   }
 
-  //  ELIMINA UN PRODUCTO POR ID
   async deleteById(id) {
     try {
       return await Products.findByIdAndDelete(id);
@@ -54,5 +52,21 @@ class ProductsDao {
       errorLogger(e);
     }
   }
+
+  //TIRA ERROR SI FALTA ALGUN DATO O SI EL TIPO DE DATO ES INCORRECTO
+  static validate(required, prod) {
+    const obj = {
+      title: checkValue(required, prod.title, 'string'),
+      price: checkValue(required, prod.price, 'number'),
+      thumbnail: checkValue(required, prod.thumbnail, 'string'),
+      description: checkValue(required, prod.description, 'string'),
+      code: checkValue(required, prod.code, 'string'),
+      stock: checkValue(required, prod.stock, 'number'),
+    };
+    for (const i in obj) {
+      if (obj[i]) throw obj[i];
+    }
+  }
 }
+
 module.exports = ProductsDao;

@@ -5,8 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "nodemon server.js",
-    "cmd": "node server.js --cmd --id --title --price --thumb --desc --code --stock"
+    "dev": "nodemon server.js"
   },
   "author": "Augusto",
   "license": "ISC",

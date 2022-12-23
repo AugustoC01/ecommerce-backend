@@ -2,7 +2,6 @@ const prodsRouter = require('./products');
 const authRouter = require('./auth');
 const infoRouter = require('./info');
 const cartRouter = require('./cart');
-const randomRouter = require('./random');
 const { infoLogger, notImplemented } = require('../helpers/logger');
 
 const Router = (app) => {
@@ -17,7 +16,6 @@ const Router = (app) => {
 
   app.use(infoRouter);
   app.use('/products', prodsRouter);
-  app.use(randomRouter);
   app.use('/cart', cartRouter);
 
   app.use(notImplemented);

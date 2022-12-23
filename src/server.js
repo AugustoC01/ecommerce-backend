@@ -2,8 +2,13 @@ const express = require('express');
 const app = express();
 app.enable('trust proxy');
 
+// const { MONGO_URL, FIREBASE_AUTH } = require('./config');
+// if (MONGO_URL) {
 const { dbConnect } = require('./daos/mongoConn');
 dbConnect();
+// } else {
+
+// }
 
 // -------IMPORT SESSION, HBS Y ROUTER-------
 const sessionMiddleware = require('./middlewares/session');
@@ -17,9 +22,3 @@ Router(app);
 const httpServer = require('http').createServer(app);
 const clusterHandle = require('./helpers/cluster');
 clusterHandle(httpServer);
-
-/* 
-//CRUD POR CMD
-const ejecutarCmd = require('./helpers/cmdDao');
-ejecutarCmd();
- */
