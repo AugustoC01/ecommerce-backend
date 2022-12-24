@@ -1,0 +1,16 @@
+<ul class='navbar'>
+  <li>
+    {{#if logued}}
+      <a href='/products'>Inicio</a>
+      <a href='/profile'>Perfil</a>
+      <a href='/cart'>
+        <img
+          src='/public/images/cart.png'
+          alt='cart'
+          style='width: 2rem;vertical-align: bottom;'
+        /></a>
+    {{else}}
+      <a href='/login'>Inicio</a>
+    {{/if}}
+  </li>
+</ul>
