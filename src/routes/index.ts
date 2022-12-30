@@ -1,13 +1,14 @@
-import { Router } from "../deps.ts";
+import { Router } from '../deps.ts';
 import {
-  createUser,
-  deleteUser,
-  findUser,
-  updateUser,
-} from "../handlers/user.ts";
+  findAll,
+  findProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from '../handlers/product.ts';
 export const router = new Router()
-  //User routes
-  .get("/api/users/:userId", findUser)
-  .delete("/api/users/:userId", deleteUser)
-  .patch("/api/users", updateUser)
-  .post("/api/users", createUser);
+  .get('', findAll)
+  .get('/:prodId', findProduct)
+  .post('', createProduct)
+  .put('/:prodId', updateProduct)
+  .delete('/:prodId', deleteProduct);
