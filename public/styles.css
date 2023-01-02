@@ -86,13 +86,18 @@
 }
 
 /* ESTILO DEL LOGIN */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .login-div {
   width: 50vw;
   height: 45vh;
   display: flex;
   flex-direction: row;
   background-color: lightgray;
-  padding: 2rem;
+  padding: 4.5rem;
   margin: 5rem auto;
   align-items: center;
   justify-content: space-evenly;

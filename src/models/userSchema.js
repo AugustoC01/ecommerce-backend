@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   age: { type: Number, required: true },
   phone: { type: Number, required: true },
   avatar: { type: String, required: false },
+  isAdmin: { type: Boolean, default: false },
   cartId: { type: String },
 });
 

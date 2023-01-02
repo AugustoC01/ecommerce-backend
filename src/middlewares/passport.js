@@ -2,8 +2,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const Users = require('../models/userSchema');
 const { createHash, isValidPass } = require('../helpers/brycpt');
-const { errorLogger } = require('../helpers/logger');
+const { logger, errorLogger } = require('../helpers/logger');
 const { sendEmail } = require('../services/msgService');
+const UsersDao = require('../daos/usersDao');
 
 passport.use(
   'login',
@@ -34,25 +35,32 @@ passport.use(
   new LocalStrategy(
     { usernameField: 'email', passReqToCallback: true },
     async (req, email, password, done) => {
-      await Users.findOne({ email: email }, async (err, user) => {
+      Users.findOne({ email: email }, (err, user) => {
         if (err) {
           errorLogger('Error en signup: ', err);
           return done(err);
         }
         if (user) {
           errorLogger('User already exists');
-          return done(null, user);
+          return done(null, false);
         }
+        //CHECKNUMBER VERIFICA QUE EMAIL, NAME Y ADDRESS NO SEAN CAMPOS QUE SOLO CONTIENEN NUMEROS
         const newUser = {
-          email: email,
+          email: checkNumber(req.body.email),
           password: createHash(password),
-          name: req.body.name,
-          address: req.body.address,
-          age: req.body.age,
-          phone: req.body.phone,
+          name: checkNumber(req.body.name),
+          address: checkNumber(req.body.address),
+          age: parseInt(req.body.age),
+          phone: parseInt(req.body.phone),
           avatar: req.file.filename,
           cartId: '',
         };
+        try {
+          UsersDao.validate(true, newUser);
+        } catch (e) {
+          errorLogger('Campos invalidos');
+          return done(null, false);
+        }
         Users.create(newUser, (err, user) => {
           if (err) {
             errorLogger('Error saving user: ', err);
@@ -78,5 +86,11 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((id, done) => {
   Users.findById(id, done);
 });
+
+const checkNumber = (data) => {
+  const number = parseInt(data);
+  if (number) return number;
+  return data;
+};
 
 module.exports = passport;

@@ -10,4 +10,4 @@ class Factory {
   }
 }
 
-module.exports = { Factory, CartsDao, ProductsDao, UsersDao };
+module.exports = { Factory };

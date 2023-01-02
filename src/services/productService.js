@@ -2,20 +2,21 @@ const { Factory } = require('../daos/mainDao');
 const DaoFactory = new Factory();
 const Products = DaoFactory.createDao('Products');
 
-const getProducts = async () => {
-  const products = await Products.getAll();
-  const productsData = products.map((prod) => {
-    return {
-      id: prod._id,
-      title: prod.title,
-      price: prod.price,
-      thumbnail: prod.thumbnail,
-      // timestamp: prod.timestamp,
-      // description: prod.description,
-      // code: prod.code,
-      // stock: prod.stock,
-    };
+const getProducts = async (category) => {
+  const products = await Products.getAll(category);
+  const productsData = [];
+  products.forEach((prod) => {
+    if (prod.stock > 0) {
+      productsData.push({
+        id: prod._id,
+        title: prod.title,
+        price: prod.price,
+        thumbnail: prod.thumbnail,
+        stock: prod.stock,
+      });
+    }
   });
+  console.log(products);
   return productsData;
 };
 
@@ -26,6 +27,10 @@ const getProduct = async (id) => {
     title: product.title,
     price: product.price,
     thumbnail: product.thumbnail,
+    stock: product.stock,
+    // timestamp: product.timestamp,
+    // description: product.description,
+    // code: product.code,
   };
   return productData;
 };

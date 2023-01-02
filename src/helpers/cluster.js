@@ -5,7 +5,7 @@ const { errorLogger } = require('./logger');
 
 // nodemon server.js --port 8080               (MODO CLUSTER)
 // nodemon server.js --port 8080 --mode fork   (MODO FORK)
-// npm test                                    (MODO CLUSTER - PUERTO 8080)
+// npm run dev                                 (MODO CLUSTER - PUERTO 8080)
 
 const clusterHandle = (httpServer) => {
   if (cluster.isMaster) {

@@ -6,6 +6,7 @@ const ProductSchema = new Schema({
   thumbnail: { type: String, required: true, max: 100 },
   timestamp: { type: Date, required: true },
   description: { type: String, required: true, max: 100 },
+  category: { type: String, required: true, max: 20 },
   code: { type: String, required: true, max: 10 },
   stock: { type: Number, required: true },
 });
