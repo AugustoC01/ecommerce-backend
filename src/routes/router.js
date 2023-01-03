@@ -15,8 +15,8 @@ const Router = (app) => {
   app.use(checkAuth);
 
   app.use(infoRouter);
-  app.use('/products', prodsRouter);
-  app.use('/cart', cartRouter);
+  app.use('/productos', prodsRouter);
+  app.use('/carrito', cartRouter);
 
   app.use(notImplemented);
 };

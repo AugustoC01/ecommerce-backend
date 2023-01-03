@@ -7,7 +7,6 @@ const dbConnect = () => {
     mongoose.connect(MONGO_URL, { useNewUrlParser: true });
     logger.info('db conectada');
   } catch (e) {
-    console.log('no conecto');
     errorLogger(e);
   }
 };

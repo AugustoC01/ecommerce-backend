@@ -70,7 +70,7 @@ passport.use(
           try {
             sendEmail('Nuevo registro', JSON.stringify(newUser));
           } catch (error) {
-            console.log('aca');
+            errorLogger('Email no enviado');
           }
           return done(null, user);
         });

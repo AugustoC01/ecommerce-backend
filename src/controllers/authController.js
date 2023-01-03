@@ -7,7 +7,7 @@ const signup = (req, res) => {
 };
 
 const accessRedirect = (req, res) => {
-  res.status(200).redirect('/products');
+  res.status(200).redirect('/productos');
 };
 
 const handleLogout = (req, res, next) => {

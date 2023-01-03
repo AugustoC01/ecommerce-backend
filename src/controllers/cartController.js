@@ -10,7 +10,7 @@ const addToCart = async (req, res) => {
   let { cartId, _id: userId } = req.user;
   const { prodId } = req.params;
   await addProd(cartId, userId, prodId);
-  res.status(200).redirect('/products');
+  res.status(200).redirect('/productos');
 };
 
 const getCart = async (req, res) => {

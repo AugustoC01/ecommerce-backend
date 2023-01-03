@@ -9,10 +9,10 @@ class ProductsDao {
     return instance;
   }
 
-  async getAll(cat) {
+  async getAll(category) {
     try {
-      if (cat) {
-        return await Products.find({ category: cat });
+      if (category) {
+        return await Products.find({ category: category });
       }
       return await Products.find({});
     } catch (e) {

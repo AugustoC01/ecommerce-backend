@@ -12,11 +12,10 @@ const getProducts = async (category) => {
         title: prod.title,
         price: prod.price,
         thumbnail: prod.thumbnail,
-        stock: prod.stock,
       });
+      console.log(prod.id);
     }
   });
-  console.log(products);
   return productsData;
 };
 
@@ -28,9 +27,8 @@ const getProduct = async (id) => {
     price: product.price,
     thumbnail: product.thumbnail,
     stock: product.stock,
-    // timestamp: product.timestamp,
-    // description: product.description,
-    // code: product.code,
+    description: product.description,
+    code: product.code,
   };
   return productData;
 };
