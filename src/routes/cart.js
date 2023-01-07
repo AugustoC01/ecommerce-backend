@@ -10,8 +10,8 @@ const {
 
 cartRouter.get('/', getCart);
 cartRouter.post('/', sendCart, deleteCart);
-cartRouter.post('/product/:prodId', addToCart);
-cartRouter.post('/:prodId', removeFromCart);
-// cartRouter.post('/:cartId', deleteCart);
+cartRouter.post('/:prodId', addToCart);
+cartRouter.delete('/:prodId', removeFromCart);
+cartRouter.delete('/', deleteCart);
 
 module.exports = cartRouter;

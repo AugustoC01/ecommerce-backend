@@ -8,13 +8,13 @@ const getProducts = async (category) => {
   products.forEach((prod) => {
     if (prod.stock > 0) {
       productsData.push({
-        id: prod._id,
+        id: prod._id.valueOf(),
         title: prod.title,
         price: prod.price,
         thumbnail: prod.thumbnail,
       });
-      console.log(prod.id);
     }
+    console.log(prod.id);
   });
   return productsData;
 };
@@ -22,12 +22,13 @@ const getProducts = async (category) => {
 const getProduct = async (id) => {
   const product = await Products.getById(id);
   const productData = {
-    id: product._id,
+    id: product._id.valueOf(),
     title: product.title,
     price: product.price,
     thumbnail: product.thumbnail,
     stock: product.stock,
     description: product.description,
+    category: product.category,
     code: product.code,
   };
   return productData;

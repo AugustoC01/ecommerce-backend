@@ -8,11 +8,12 @@ class CartsDao {
     return instance;
   }
 
-  async newCart(userId) {
+  async newCart(userId, address) {
     try {
       const newCart = await Carts.create({
         userId,
         timestamp: new Date().toLocaleString(),
+        address,
       });
       return newCart._id;
     } catch (e) {
@@ -36,6 +37,18 @@ class CartsDao {
     }
   }
 
+  /*   async findProd(cartId, prod) {
+    try {
+      const cart = await this.getCartById(cartId);
+      const prodIndex = cart.products.prod.findIndex(
+        (product) => product == prod
+      );
+      return prodIndex;
+    } catch (e) {
+      errorLogger(e);
+    }
+  }
+ */
   async addProdToCart(cartId, prod) {
     try {
       return await Carts.findByIdAndUpdate(cartId, {
@@ -58,3 +71,19 @@ class CartsDao {
 }
 
 module.exports = CartsDao;
+
+/*   async addProdToCart(cartId, prod) {
+    try {
+      const index = this.findProd(cartId, prod);
+      if (index == -1) {
+        return await Carts.findByIdAndUpdate(cartId, {
+          $addToSet: { products: { quantity: 1, prod } },
+        });
+      }
+      const cart = Carts.findById(cartId);
+      cart.products[index].quantity++;
+      return await Carts.findByIdAndUpdate(cartId, cart);
+    } catch (e) {
+      errorLogger(e);
+    }
+  } */

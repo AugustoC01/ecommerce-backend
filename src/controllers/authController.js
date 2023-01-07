@@ -21,14 +21,14 @@ const handleLogout = (req, res, next) => {
 };
 
 const loginFail = (req, res) => {
-  res.status(200).render('mainLoginError', {
+  res.status(200).render('mainError', {
     errorAction: 'login',
     errorMsg: 'ERROR AL INGRESAR',
   });
 };
 
 const signupFail = (req, res) => {
-  res.status(200).render('mainLoginError', {
+  res.status(200).render('mainError', {
     errorAction: 'signup',
     errorMsg: 'ERROR AL REGISTARSE',
   });

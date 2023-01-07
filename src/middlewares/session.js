@@ -1,6 +1,6 @@
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const { MONGO_URL: URL } = require('../config');
+const { MONGO_URL: URL, SESSION_TIME } = require('../config');
 const passport = require('./passport');
 
 const sessionConfig = session({
@@ -16,7 +16,7 @@ const sessionConfig = session({
   saveUninitialized: false,
   rolling: true,
   cookie: {
-    maxAge: 600000,
+    maxAge: SESSION_TIME * 60000,
   },
 });
 

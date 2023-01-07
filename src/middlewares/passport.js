@@ -34,7 +34,7 @@ passport.use(
   'signup',
   new LocalStrategy(
     { usernameField: 'email', passReqToCallback: true },
-    async (req, email, password, done) => {
+    async (req, email, done) => {
       Users.findOne({ email: email }, (err, user) => {
         if (err) {
           errorLogger('Error en signup: ', err);
@@ -45,9 +45,11 @@ passport.use(
           return done(null, false);
         }
         //CHECKNUMBER VERIFICA QUE EMAIL, NAME Y ADDRESS NO SEAN CAMPOS QUE SOLO CONTIENEN NUMEROS
+        const equal = req.body.password === req.body.secondPass;
+        if (!equal) return done(null, false);
         const newUser = {
           email: checkNumber(req.body.email),
-          password: createHash(password),
+          password: createHash(req.body.password),
           name: checkNumber(req.body.name),
           address: checkNumber(req.body.address),
           age: parseInt(req.body.age),

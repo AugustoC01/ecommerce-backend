@@ -1,0 +1,136 @@
+<form
+  action="/productos"
+  id="createForm"
+  class="updateForm"
+  onsubmit="createProd(createForm)"
+  method="post"
+>
+  <h3>Formulario de creacion</h3>
+  <input
+    type="text"
+    name="title"
+    id="title"
+    placeholder="Titulo"
+    onchange="setPreview(this.id)"
+  />
+  <input
+    type="number"
+    name="price"
+    id="price"
+    placeholder="Precio $"
+    onchange="setPreview(this.id)"
+  />
+  <input
+    type="text"
+    name="thumbnail"
+    id="thumbnail"
+    placeholder="Url de imagen"
+    onchange="setPreview(this.id)"
+  />
+  <input
+    type="text"
+    name="description"
+    id="description"
+    placeholder="Descripcion"
+    onchange="setPreview(this.id)"
+  />
+  <input
+    type="text"
+    name="category"
+    id="category"
+    placeholder="Categoria"
+    onchange="setPreview(this.id)"
+  />
+  <input
+    type="text"
+    name="code"
+    id="code"
+    placeholder="Codigo"
+    onchange="setPreview(this.id)"
+  />
+  <input
+    type="number"
+    name="stock"
+    id="stock"
+    placeholder="Stock"
+    onchange="setPreview(this.id)"
+  />
+  <button type="submit" class="btn">Crear</button>
+</form>
+
+{{!-- MUESTRA COMO QUEDARIA EL PRODUCTO --}}
+<div class="card-container">
+  <h3 style="text-align: center;">Vista previa</h3>
+  <div class="card">
+    <p id="title-preview">Titulo</p>
+    <p id="price-preview">$ 0</p>
+    <img id="thumbnail-preview" src="/public/images/wireframe.png" alt="">
+    <p id="description-preview"></p>
+    <p id="category-preview"></p>
+    <p id="code-preview"></p>
+    <p id="stock-preview"></p>
+  </div>
+</div>
+
+<script>
+  function setPreview(id) { 
+    const preview = id + "-preview"; 
+    const x = document.getElementById(id);
+    if (id == "thumbnail") {
+      document.getElementById(preview).src = x.value 
+      return
+    }
+    if (id == "price") {
+      document.getElementById(preview).innerText = "$ " + x.value
+      return
+    }
+    document.getElementById(preview).innerText = x.value; 
+  } 
+  
+  //ACTUALIZA EL PRODUCTO
+  function createProd(prodData) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Cookie", "connect.sid=s%3A_AGRLUXUoMp-BGT8-oVpbnBpiRVxGoZN.Uc4zsVZ%2B9nGIqV2QTXjJdflhleT2Va8pvmV9MEd1gt4");
+    var raw = JSON.stringify({
+      "title": prodData.title.value,
+      "price": prodData.price.value,
+      "thumbnail": prodData.thumbnail.value,
+      "description": prodData.description.value,
+      "category": prodData.category.value,
+      "code": prodData.code.value,
+      "stock":prodData.stock.value 
+    });
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    fetch("http://localhost:8080/productos/", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+    
+    /*
+    const data = {
+      "title": document.getElementById("title"),
+      "price": document.getElementById("price"),
+      "thumbnail": document.getElementById("thumbnail"),
+      "description": document.getElementById("description"),
+      "category": document.getElementById("category"),
+      "code": document.getElementById("code"),
+      "stock": document.getElementById("stock"),
+    }
+    const prod = JSON.stringify({
+      "title": data.title.value,
+      "price": data.price.value,
+      "thumbnail": data.thumbnail.value,
+      "description": data.description.value,
+      "category": data.category.value,
+      "code": data.code.value,
+      "stock": data.stock.value,
+    })
+  */
+  }
+</script>

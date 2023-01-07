@@ -4,13 +4,23 @@
   text-align: center;
   height: 8vh;
   font-size: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .navbar a {
   color: white;
   margin: 2rem;
 }
+.navbar input {
+  background: none;
+  border: 0;
+  color: white;
+  font-size: 1.5rem;
+}
 
-/* ESTILOS DE PRODUCTOS */
+/* ESTILOS DE CONTENEDOR PRODUCTOS */
 .products-title {
   text-align: center;
 }
@@ -20,58 +30,132 @@
   gap: 1rem;
   margin: 1rem 1rem 3rem;
 }
-.prod-container {
+.prodBtn-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.3rem;
+}
+/* ESTILO DE PRODUCTO */
+.card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: outset deepskyblue;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0.2rem 0.5rem 1rem 0.2rem grey;
+  padding: 1rem;
+  margin-top: 1rem;
 }
-.product-img {
-  width: 300px;
-  max-width: 300px;
-  height: 200px;
-  max-height: 200px;
+.card img {
+  width: 13rem;
+  height: 11rem;
+  border: 1px solid lightblue;
+  margin: 1rem 0;
+}
+/* VISTA DETALLES DE PRODUCTO */
+.productView-container {
+  display: flex;
+  gap: 10rem;
+  justify-content: center;
+  margin: 5rem 0;
+}
+.productView-container img {
+  max-width: 30rem;
+  max-height: 30rem;
+}
+.productInfo-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.counter-btn {
+  width: 100%;
+  color: black;
+  background-color: white;
+  border: 0.15rem solid black;
+  font-size: 0.9rem;
+  padding: 0.5rem 0.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.counter-btn:hover {
+  color: white;
+  background-color: darkgrey;
+  border-color: white;
+}
+.counter-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 6rem;
+}
+.quantity-input {
+  border: 0;
+  width: 2rem;
+  font-weight: bold;
+}
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: auto;
+}
+.quantity-input {
+  display: flex;
+  gap: 0.5rem;
+  text-transform: capitalize;
+}
+.productInfo-container form {
+  display: flex;
+  justify-content: center;
 }
 
-/* ESTILOS DEL CHAT */
-.chat-container {
+/* ESTILO DE FORMULARIO DE CARGA Y EDICION */
+.prodForm-container {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+  gap: 3rem;
+}
+.updateForm {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem auto;
+  gap: 1rem;
 }
-.chat-form {
+.updateForm input {
+  border: 0;
+  background-color: transparent;
+  border-bottom: 0.2rem solid gray;
+  font: inherit;
+  font-size: 1.125rem;
+  padding: 0.25rem 0;
+}
+.updateForm input:hover,
+.updateForm input:focus {
+  outline: 0;
+  border-bottom-color: #6658d3;
+}
+.updateForm .btn {
+  padding: 0.5rem;
+}
+
+/* ESTILO DEL CART */
+.cart-list {
+  width: 35vw;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  width: 60vw;
-  padding: 1rem 0;
 }
-.msg-list {
-  background-color: lightgray;
-  width: 60vw;
-  text-align: initial;
+.cart-product {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+
+  border: 0.25rem solid orange;
+  border-radius: 0 1rem/1rem;
+  box-shadow: 0.3rem 0.3rem darkviolet;
+  padding: 0.2rem;
 }
-.user {
-  font-weight: bold;
-  color: blue;
-}
-.date {
-  color: #964b00;
-}
-.msg {
-  color: green;
-  font-style: italic;
-}
-.avatar {
-  max-width: 5rem;
-  border-radius: 2rem;
-}
-.form-input {
-  font-size: 1rem;
-  padding: 0.3rem;
-  border: 0.1rem solid #ccc;
-  border-radius: 0.25rem;
-}
+
+/* MI BOTON */
 .btn {
   color: white;
   background-color: darkorange;
@@ -89,7 +173,6 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0;
 }
 .login-div {
   width: 50vw;
@@ -164,6 +247,19 @@ input::-webkit-inner-spin-button {
   gap: 1rem;
 }
 
+/* ESTILO DE PROFILE */
+.profile-table,
+tr,
+td {
+  border: solid 1px black;
+  text-align: initial;
+  width: 50vw;
+}
+.avatar-img {
+  width: 7rem;
+  height: 7rem;
+}
+
 /* ESTILO DE LA TABLA INFO */
 .div-info {
   width: 50vw;
@@ -182,41 +278,51 @@ td {
   padding: 0.1rem;
 }
 
-/* ESTILO DE PROFILE */
-.profile-table,
-tr,
-td {
-  border: solid 1px black;
-  text-align: initial;
-  width: 50vw;
-}
-.avatar-img {
-  width: 7rem;
-  height: 7rem;
-}
-
-/* ESTILO DEL CART */
-.cart-list {
-  width: 35vw;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-}
-.cart-product {
-  align-items: center;
-  display: flex;
-  justify-content: space-evenly;
-
-  border: 0.25rem solid orange;
-  border-radius: 0 1rem/1rem;
-  box-shadow: 0.3rem 0.3rem darkviolet;
-  padding: 0.2rem;
-}
-
 /* ESTILO DEL FOOTER */
 .footer {
   text-align: center;
   margin: 1rem 0 0;
   font-size: 1.5rem;
   text-transform: uppercase;
+}
+
+/* ESTILOS DEL CHAT */
+/* .chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+}
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  padding: 1rem 0;
+}
+.msg-list {
+  background-color: lightgray;
+  width: 60vw;
+  text-align: initial;
+}
+.user {
+  font-weight: bold;
+  color: blue;
+}
+.date {
+  color: #964b00;
+}
+.msg {
+  color: green;
+  font-style: italic;
+}
+.avatar {
+  max-width: 5rem;
+  border-radius: 2rem;
+}
+*/
+.form-input {
+  font-size: 1rem;
+  padding: 0.3rem;
+  border: 0.1rem solid #ccc;
+  border-radius: 0.25rem;
 }

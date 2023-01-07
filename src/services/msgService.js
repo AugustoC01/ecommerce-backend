@@ -2,13 +2,12 @@ const {
   TWILIO_WPP_NUM: WPP_NUM,
   TWILIO_SMS_NUM: SMS_NUM,
   TWILIO_MI_NUM: MI_NUM,
+  TWILIO_MAIL: MAIL,
+  TWILIO_MAIL_PASS: MAIL_PASS,
 } = require('../config');
 
 const { client, createTransport } = require('../middlewares/twilio');
 const { errorLogger } = require('../helpers/logger');
-
-const MAIL = '';
-const MAIL_PASS = '';
 
 const sendWpp = (msg) => {
   try {

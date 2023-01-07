@@ -1,0 +1,125 @@
+{{#with prod}}
+  <form
+    action="/productos"
+    id="updateForm"
+    class="updateForm"
+    onsubmit="updateProd(updateForm)"
+  >
+  <h3>Formulario de edicion</h3>
+    <input type="hidden" name="id" id="id" value="{{this.id}}">
+    <input
+      type="text"
+      name="title"
+      id="title"
+      placeholder="Titulo"
+      value="{{this.title}}"
+      onchange="setPreview(this.id)"
+    />
+    <input
+      type="number"
+      name="price"
+      id="price"
+      placeholder="Precio $"
+      value="{{this.price}}"
+      onchange="setPreview(this.id)"
+    />
+    <input
+      type="text"
+      name="thumbnail"
+      id="thumbnail"
+      placeholder="Url de imagen"
+      value="{{this.thumbnail}}"
+      onchange="setPreview(this.id)"
+    />
+    <input
+      type="text"
+      name="description"
+      id="description"
+      placeholder="Descripcion"
+      value="{{this.description}}"
+      onchange="setPreview(this.id)"
+    />
+    <input
+      type="text"
+      name="category"
+      id="category"
+      placeholder="Categoria"
+      value="{{this.category}}"
+      onchange="setPreview(this.id)"
+    />
+    <input
+      type="text"
+      name="code"
+      id="code"
+      placeholder="Codigo"
+      value="{{this.code}}"
+      onchange="setPreview(this.id)"
+    />
+    <input
+      type="number"
+      name="stock"
+      id="stock"
+      value="{{this.stock}}"
+      placeholder="Stock"
+      onchange="setPreview(this.id)"
+    />
+    <button type="submit" class="btn">Actualizar</button>
+  </form>
+
+  {{!-- MUESTRA COMO QUEDARIA EL PRODUCTO --}}
+  <div class="card-container">
+    <h3 style="text-align: center;">Vista previa</h3>
+    <div class="card">
+      <p id="title-preview">{{this.title}}</p>
+      <p id="price-preview">${{this.price}}</p>
+      <img id="thumbnail-preview" src="{{this.thumbnail}}" alt="{{this.thumbnail}}">
+      <p id="description-preview">{{this.description}}</p>
+      <p id="category-preview">{{this.category}}</p>
+      <p id="code-preview">{{this.code}}</p>
+      <p id="stock-preview">{{this.stock}}</p>
+    </div>
+  </div>
+{{/with}}
+
+<script>
+  function setPreview(id) { 
+    const preview = id + "-preview"; 
+    const x = document.getElementById(id);
+    if (id == "thumbnail") {
+      document.getElementById(preview).src = x.value 
+      return
+    }
+    if (id == "price") {
+      document.getElementById(preview).innerText = "$ " + x.value
+      return
+    }
+    document.getElementById(preview).innerText = x.value; 
+  } 
+  
+  //ACTUALIZA EL PRODUCTO
+  function updateProd(prodData) {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const URL = "http://" + window.location.host + "/productos/" + prodData.id.value
+    const prod = JSON.stringify({
+      title: prodData.title.value,
+      price: prodData.price.value,
+      thumbnail: prodData.thumbnail.value,
+      description: prodData.description.value,
+      category: prodData.category.value,
+      code: prodData.code.value,
+      stock: prodData.stock.value,
+    })
+    const requestOptions = {
+      method: "PUT",
+      credentials: "same-origin",
+      headers: myHeaders,
+      body: prod,
+      redirect: "follow",
+    };
+    fetch(URL, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log("error", error));
+  }
+</script>

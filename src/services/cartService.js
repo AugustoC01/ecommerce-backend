@@ -5,11 +5,19 @@ const Users = DaoFactory.createDao('Users');
 const Products = DaoFactory.createDao('Products');
 
 const { sendWpp, sendSms, sendEmail } = require('./msgService');
+const { createOrder } = require('./orderService');
+
+const createCart = async (userId) => {
+  const user = await Users.getUser(userId);
+  const address = user.address;
+  const cartId = await Carts.newCart(userId, address);
+  await Users.addUserCart(userId, cartId);
+  return cartId;
+};
 
 const addProd = async (cartId, userId, prodId) => {
   if (!cartId) {
-    cartId = await Carts.newCart(userId);
-    await Users.addUserCart(userId, cartId);
+    cartId = await createCart(userId);
   }
   const prod = await Products.getById(prodId);
   await Carts.addProdToCart(cartId, prod);
@@ -42,6 +50,7 @@ const removeProd = async (cartId, prodId) => {
 };
 
 const removeAll = async (cartId) => {
+  await createOrder(cartId);
   await Carts.deleteCartById(cartId);
   await Users.resetUserCart(cartId);
 };

@@ -41,7 +41,7 @@ class ProductsDao {
 
   async updateById(id, body) {
     try {
-      ProductsDao.validate(false, body);
+      // ProductsDao.validate(false, body);
       return await Products.updateOne({ _id: id }, { $set: body });
     } catch (e) {
       errorLogger(e);

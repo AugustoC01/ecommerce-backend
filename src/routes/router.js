@@ -5,7 +5,7 @@ const cartRouter = require('./cart');
 const { infoLogger, notImplemented } = require('../helpers/logger');
 
 const Router = (app) => {
-  infoLogger;
+  // infoLogger;
 
   app.get('/', (req, res) => {
     res.status(200).redirect('/login');

@@ -1,5 +1,6 @@
 const Users = require('../models/userSchema');
 const { checkValue } = require('../helpers/checkValue');
+const { errorLogger } = require('../helpers/logger');
 
 let instance = null;
 class UsersDao {
@@ -8,12 +9,28 @@ class UsersDao {
     return instance;
   }
 
+  async getUser(userId) {
+    try {
+      return await Users.findById(userId);
+    } catch (e) {
+      errorLogger(e);
+    }
+  }
+
   async addUserCart(userId, cartId) {
-    return await Users.findByIdAndUpdate(userId, { cartId: cartId });
+    try {
+      return await Users.findByIdAndUpdate(userId, { cartId: cartId });
+    } catch (e) {
+      errorLogger(e);
+    }
   }
 
   async resetUserCart(cartId) {
-    return await Users.findOneAndUpdate({ cartId: cartId }, { cartId: '' });
+    try {
+      return await Users.findOneAndUpdate({ cartId: cartId }, { cartId: '' });
+    } catch (e) {
+      errorLogger(e);
+    }
   }
 
   //TIRA ERROR SI FALTA ALGUN DATO O SI EL TIPO DE DATO ES INCORRECTO

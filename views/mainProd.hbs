@@ -1,0 +1,19 @@
+{{>navbar logued=logued}}
+
+{{>loginMsg name=name}}
+
+{{#if create}}
+  <div class='prodForm-container'>
+  {{>prodCreateForm}}
+  </div>
+{{/if}}
+{{#if edit}}
+  <div class='prodForm-container'>
+  {{>prodEditForm prod=prod}}
+  </div>
+{{/if}}
+{{#if view}}
+  {{>prodView prod=prod}}
+{{/if}}
+
+{{>footer}}
