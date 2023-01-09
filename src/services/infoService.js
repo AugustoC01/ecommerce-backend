@@ -4,7 +4,6 @@ const numCPUs = require('os').cpus().length;
 
 const getInfo = () => {
   return {
-    logued: true,
     ARGS: JSON.stringify(args),
     OS: process.platform,
     NODEV: process.version,

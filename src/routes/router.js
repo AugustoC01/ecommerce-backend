@@ -2,6 +2,7 @@ const prodsRouter = require('./products');
 const authRouter = require('./auth');
 const infoRouter = require('./info');
 const cartRouter = require('./cart');
+const chatRouter = require('./chat');
 const { infoLogger, notImplemented } = require('../helpers/logger');
 
 const Router = (app) => {
@@ -15,6 +16,7 @@ const Router = (app) => {
   app.use(checkAuth);
 
   app.use(infoRouter);
+  app.use('/chat', chatRouter);
   app.use('/productos', prodsRouter);
   app.use('/carrito', cartRouter);
 

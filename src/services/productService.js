@@ -14,7 +14,7 @@ const getProducts = async (category) => {
         thumbnail: prod.thumbnail,
       });
     }
-    console.log(prod.id);
+    // console.log(prod.id);
   });
   return productsData;
 };

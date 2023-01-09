@@ -8,4 +8,4 @@ node_modules
 *.log
 
 #Ignora los txt
-*.txt
+Notas.txt

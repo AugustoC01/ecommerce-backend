@@ -24,10 +24,10 @@ const addProd = async (cartId, userId, prodId) => {
 };
 
 const getCartData = async (cartId) => {
-  if (!cartId) return { logued: true, cart: false };
+  if (!cartId) return { cart: false };
   const cart = await Carts.getCartById(cartId);
   const productsList = cart.products;
-  if (productsList.length == 0) return { logued: true, cart: false };
+  if (productsList.length == 0) return { cart: false };
   const total = productsList.reduce((total, prod) => total + prod.price, 0);
   const products = productsList.map((prod) => {
     return {
@@ -37,7 +37,6 @@ const getCartData = async (cartId) => {
     };
   });
   return {
-    logued: true,
     cart: true,
     products,
     total,

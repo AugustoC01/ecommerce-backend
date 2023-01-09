@@ -1,9 +1,9 @@
 const login = (req, res) => {
-  res.status(200).render('mainLogin', { login: true });
+  res.status(200).render('mainLogin', { login: true, notLogued: true });
 };
 
 const signup = (req, res) => {
-  res.status(200).render('mainLogin');
+  res.status(200).render('mainLogin', { notLogued: true });
 };
 
 const accessRedirect = (req, res) => {
@@ -37,7 +37,6 @@ const signupFail = (req, res) => {
 const profileData = (req, res) => {
   const { email, name, address, age, phone, avatar } = req.user;
   res.status(200).render('mainInfo', {
-    logued: true,
     profile: true,
     email,
     name,

@@ -1,0 +1,11 @@
+FALTA
+
+- Fetchs de carrito
+
+- Crear producto en front
+
+- Agregar cantidades a los productos del carrito
+
+- CHATS
+
+- Documentacion

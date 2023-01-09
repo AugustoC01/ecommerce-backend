@@ -1,0 +1,17 @@
+<script src="../public/index.js"></script>
+
+<h1>Chats</h1>
+
+<form onsubmit="return enterName()">
+  <input type="text" id="name" placeholer="Ingrese nombre">
+  <input type="submit" value="Ingresar">
+</form>
+
+<ul id="usersList"></ul>
+
+<form onsubmit="return sendMsg()">
+  <input type="text" id="message" placeholder="Ingrese su mensaje">
+  <input type="submit" value="Enviar">
+</form>
+
+<ul id='messages'></ul>
