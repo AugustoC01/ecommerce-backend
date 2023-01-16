@@ -1,0 +1,25 @@
+{{>navbar}}
+
+<div class="history-container">
+<h3 style="text-align: center;">Historial de mensajes</h3>
+
+<ul class="history-list">
+{{#each history}}
+  {{#if this.admin}}
+  <li class="history">
+    <p class="admin-email">{{this.email}}</p>
+    <p class="time">[{{this.timestamp}}] :</p>
+    <p class="msg">{{this.message}}</p>
+  </li>
+  {{else}}
+  <li class="history">
+    <p class="email">{{this.email}}</p>
+    <p class="time">[{{this.timestamp}}] :</p>
+    <p class="msg">{{this.message}}</p>
+  </li>
+  {{/if}}
+{{/each}}
+</ul>
+</div>
+
+{{>footer}}

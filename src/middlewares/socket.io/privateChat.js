@@ -1,33 +1,46 @@
-const { Factory } = require('../../daos/mainDao');
-const DaoFactory = new Factory();
-const Messages = DaoFactory.createDao('Messages');
+const {
+  getMessages,
+  saveMsg,
+  getUsers,
+} = require("../../services/chatService");
 
 const privateChatHandle = (http) => {
-  const io = require('socket.io')(http);
+  const io = require("socket.io")(http);
   const users = [];
+  let adminEmail;
 
-  io.on('connection', (socket) => {
-    console.log('User ', socket.id);
+  io.on("connection", (socket) => {
+    console.log("User ", socket.id);
 
-    // cuando un usuario se conecta
-    socket.on('user-connected', async (username) => {
-      //guarda el usuario en un array de usuarios
-      users[username] = socket.id;
-      const messages = await Messages.getAll(username);
-      //avisa a todos que se conecto alguien
-      io.emit('user-connected', { username, messages });
+    socket.on("user-connected", ({ email, admin }) => {
+      users[email] = socket.id;
+      let usersData;
+      if (admin == "true") {
+        adminEmail = email;
+        usersData = getUsers(users, email);
+      } else {
+        usersData = getUsers(users);
+      }
+      io.emit("show-user", usersData);
     });
 
-    socket.on('send-msg', async (data) => {
-      // console.log(data);
-      //ENVIAR EL MENSAJE A DESTINO
-      const socketId = users[data.receiver];
-      await Messages.save({
-        email: data.receiver,
-        type: 'usuario',
-        msg: data.message,
-      });
-      io.to(socketId).emit('new-msg', data);
+    socket.on("retrieve-chats", async ({ email, adminEmail }) => {
+      const messages = await getMessages(email);
+      io.to(users[adminEmail]).emit("chat-data", messages);
+    });
+
+    socket.on("send-msg", async ({ sender, receiver, message, admin }) => {
+      let msgData = { msg: message };
+      if (admin == "true") {
+        msgData.email = receiver;
+        msgData.type = "sistema";
+      } else {
+        msgData.email = sender;
+        msgData.type = "usuario";
+      }
+      const socketId = admin == "true" ? users[receiver] : users[adminEmail];
+      await saveMsg(msgData);
+      io.to(socketId).emit("new-msg", msgData);
     });
   });
 };

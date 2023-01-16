@@ -2,10 +2,8 @@ FALTA
 
 - Fetchs de carrito
 
-- Crear producto en front
+- POST para crear producto
 
 - Agregar cantidades a los productos del carrito
-
-- CHATS
 
 - Documentacion

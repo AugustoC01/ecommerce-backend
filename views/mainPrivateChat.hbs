@@ -1,0 +1,40 @@
+<script src="../public/index.js"></script>
+
+<h1>Chats</h1>
+<br>
+
+{{#with user}}
+  <a href="/chat/{{this.email}}" class="btn" >Historial</a>
+  <br><br>
+
+  {{#if this.isAdmin}}
+    <h3>Hola {{this.name}}. Centro de consultas</h3>
+  {{else}}
+    <h3>Hola {{this.name}}. ¿Tienes algun problema?</h3>
+  {{/if}}
+  <br>
+  <form onsubmit="return newChat()">
+    <input type="hidden" id="email" value="{{this.email}}">
+    <input type="hidden" id="admin" value="{{this.isAdmin}}">
+    {{#if this.isAdmin}}
+    <input type="submit" value="Abrir chat" class="btn" onclick="showChat()">
+    {{else}}
+    <input type="submit" value="Iniciar chat" class="btn" onclick="showChat()">
+    {{/if}}
+  </form>
+
+  {{#if this.isAdmin}}
+    <ul id="usersList"></ul>
+  {{else}}
+    <ul id="usersList" style="visibility: hidden;"></ul>
+  {{/if}}
+
+
+  <br>
+  <form onsubmit="return sendMsg()" id="msg-form" style="visibility: hidden;">
+    <input type="text" id="message" placeholder="Ingrese su mensaje">
+    <input type="submit" value="Enviar" class="btn">
+  </form>
+
+  <ul id="messages"></ul>
+{{/with}}

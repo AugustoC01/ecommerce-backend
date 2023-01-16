@@ -1,5 +1,5 @@
-const { errorLogger } = require('../helpers/logger');
-const Messages = require('../models/messageSchema');
+const { errorLogger } = require("../helpers/logger");
+const Messages = require("../models/messageSchema");
 
 let instance = null;
 class MessagesDao {
@@ -19,10 +19,9 @@ class MessagesDao {
 
   async getAll(email) {
     try {
-      return await Messages.find({ email }).sort('timestamp');
+      return await Messages.find({ email }).sort("timestamp");
     } catch (e) {
-      // errorLogger(e);
-      console.log(e);
+      errorLogger(e);
     }
   }
 }
