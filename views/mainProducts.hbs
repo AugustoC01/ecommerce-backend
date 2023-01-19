@@ -1,18 +1,16 @@
 {{>navbar}}
 
-{{>loginMsg name=name}}
-
 {{>categoryFilter}}
 
 {{#if isAdmin}}
-  <form action="/productos/create" method='get'>
-  <button type="submit" class='btn'>Crear producto</button>
+  <form action="/productos/create" method="get" class="create-prod-btn">
+  <button type="submit" class="btn">Crear producto</button>
   </form>
 {{/if}}
 
-<div class='products-container'>
-  <h1 class='products-title'>Listado de productos</h1>
-  <div id='products-list' class='products-list'>
+<div class="products-container">
+  <h1 class="products-title">Listado de productos</h1>
+  <div id="products-list" class="products-list">
     {{>productsList data=.}}
   </div>
 </div>

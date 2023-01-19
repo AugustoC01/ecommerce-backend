@@ -2,7 +2,7 @@ const { userData, userHistory } = require("../services/chatService");
 
 const chat = (req, res) => {
   const user = userData(req.user);
-  res.status(200).render("mainPrivateChat", { user });
+  res.status(200).render("mainChat", { user });
 };
 
 const getHistory = async (req, res) => {

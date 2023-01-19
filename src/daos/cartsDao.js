@@ -1,5 +1,5 @@
-const { errorLogger } = require('../helpers/logger');
-const Carts = require('../models/cartSchema');
+const { errorLogger } = require("../helpers/logger");
+const Carts = require("../models/cartSchema");
 
 let instance = null;
 class CartsDao {

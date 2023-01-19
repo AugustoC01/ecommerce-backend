@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const MessageSchema = new Schema({
   email: { type: String, required: true, max: 40 },
@@ -7,5 +7,5 @@ const MessageSchema = new Schema({
   msg: { type: String, required: true, max: 100 },
 });
 
-const Messages = model('Message', MessageSchema);
+const Messages = model("Message", MessageSchema);
 module.exports = Messages;

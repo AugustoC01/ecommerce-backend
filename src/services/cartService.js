@@ -1,16 +1,15 @@
-const { Factory } = require('../daos/mainDao');
+const { Factory } = require("../daos/mainDao");
 const DaoFactory = new Factory();
-const Carts = DaoFactory.createDao('Carts');
-const Users = DaoFactory.createDao('Users');
-const Products = DaoFactory.createDao('Products');
+const Carts = DaoFactory.createDao("Carts");
+const Users = DaoFactory.createDao("Users");
+const Products = DaoFactory.createDao("Products");
 
-const { sendWpp, sendSms, sendEmail } = require('./msgService');
-const { createOrder } = require('./orderService');
+const { sendWpp, sendSms, sendEmail } = require("./msgService");
+const { createOrder } = require("./orderService");
 
 const createCart = async (userId) => {
   const user = await Users.getUser(userId);
-  const address = user.address;
-  const cartId = await Carts.newCart(userId, address);
+  const cartId = await Carts.newCart(userId, user.address);
   await Users.addUserCart(userId, cartId);
   return cartId;
 };
@@ -57,14 +56,14 @@ const removeAll = async (cartId) => {
 const sendCartData = async (name, email, cartId) => {
   const cart = await getCartData(cartId);
   const products = cart.products.reduce(
-    (prods, prod) => prods + '' + prod.title,
-    'Lista de productos:'
+    (prods, prod) => prods + "" + prod.title,
+    "Lista de productos: "
   );
   const subject = `Nuevo pedido de ${name} ${email}`;
-  const msg = 'Su pedido ha sido recibido y se encuentra en proceso';
-  sendWpp(subject);
-  sendSms(msg);
-  sendEmail(subject, products);
+  const msg = "Su pedido ha sido recibido y se encuentra en proceso";
+  // sendWpp(subject);
+  // sendSms(msg);
+  // sendEmail(subject, products);
   removeAll(cartId);
 };
 

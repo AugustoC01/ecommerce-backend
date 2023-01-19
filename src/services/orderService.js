@@ -1,8 +1,9 @@
-const { Factory } = require('../daos/mainDao');
+const { Factory } = require("../daos/mainDao");
+const { errorLogger } = require("../helpers/logger");
 const DaoFactory = new Factory();
-const Carts = DaoFactory.createDao('Carts');
-const Users = DaoFactory.createDao('Users');
-const Orders = DaoFactory.createDao('Orders');
+const Carts = DaoFactory.createDao("Carts");
+const Users = DaoFactory.createDao("Users");
+const Orders = DaoFactory.createDao("Orders");
 
 const createOrder = async (cartId) => {
   const order = {

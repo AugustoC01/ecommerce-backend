@@ -21,17 +21,19 @@ const handleLogout = (req, res, next) => {
 };
 
 const loginFail = (req, res) => {
-  res.status(200).render("mainError", {
-    errorAction: "login",
-    errorMsg: "ERROR AL INGRESAR",
+  res.status(200).render("mainNotification", {
+    action: "login",
+    msg: "ERROR AL INGRESAR",
+    error: true,
     notLogued: true,
   });
 };
 
 const signupFail = (req, res) => {
-  res.status(200).render("mainError", {
-    errorAction: "signup",
-    errorMsg: "ERROR AL REGISTARSE",
+  res.status(200).render("mainNotification", {
+    action: "signup",
+    msg: "ERROR AL REGISTARSE",
+    error: true,
     notLogued: true,
   });
 };

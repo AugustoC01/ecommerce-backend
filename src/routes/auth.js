@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const authRouter = Router();
 const {
   login,
@@ -8,33 +8,33 @@ const {
   signupFail,
   loginFail,
   profileData,
-} = require('../controllers/authController');
-const upload = require('../middlewares/multer');
-const passport = require('passport');
+} = require("../controllers/authController");
+const upload = require("../middlewares/multer");
+const passport = require("passport");
 
-authRouter.get('/login', login);
+authRouter.get("/login", login);
 
-authRouter.get('/signup', signup);
+authRouter.get("/signup", signup);
 
-authRouter.get('/loginFail', loginFail);
+authRouter.get("/loginFail", loginFail);
 
-authRouter.get('/signupFail', signupFail);
+authRouter.get("/signupFail", signupFail);
 
-authRouter.get('/profile', profileData);
+authRouter.get("/profile", profileData);
 
 authRouter.post(
-  '/signup',
+  "/signup",
   upload,
-  passport.authenticate('signup', { failureRedirect: '/signupFail' }),
+  passport.authenticate("signup", { failureRedirect: "/signupFail" }),
   accessRedirect
 );
 
 authRouter.post(
-  '/login',
-  passport.authenticate('login', { failureRedirect: '/loginFail' }),
+  "/login",
+  passport.authenticate("login", { failureRedirect: "/loginFail" }),
   accessRedirect
 );
 
-authRouter.post('/logout', handleLogout);
+authRouter.post("/logout", handleLogout);
 
 module.exports = authRouter;

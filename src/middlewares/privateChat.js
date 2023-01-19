@@ -1,8 +1,4 @@
-const {
-  getMessages,
-  saveMsg,
-  getUsers,
-} = require("../../services/chatService");
+const { getMessages, saveMsg, getUsers } = require("../services/chatService");
 
 const privateChatHandle = (http) => {
   const io = require("socket.io")(http);

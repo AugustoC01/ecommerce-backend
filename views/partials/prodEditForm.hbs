@@ -97,7 +97,7 @@
   } 
   
   //ACTUALIZA EL PRODUCTO
-  function updateProd(prodData) {
+  async function updateProd(prodData) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     const URL = "http://" + window.location.host + "/productos/" + prodData.id.value
@@ -117,9 +117,10 @@
       body: prod,
       redirect: "follow",
     };
-    fetch(URL, requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log("error", error));
+    try {
+    const res = await fetch(URL, requestOptions)
+    } catch(e) {
+      console.log("error ", e);
+    }
   }
 </script>

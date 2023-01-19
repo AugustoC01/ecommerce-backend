@@ -1,9 +1,9 @@
 FALTA
 
-- Fetchs de carrito
-
-- POST para crear producto
+- Documentacion
 
 - Agregar cantidades a los productos del carrito
 
-- Documentacion
+- Agregar control de stock
+
+- Cuando se realizan algunos fetch, es necesario recargar la pagina para verlos

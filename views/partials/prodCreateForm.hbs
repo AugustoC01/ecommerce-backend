@@ -3,7 +3,7 @@
   id="createForm"
   class="updateForm"
   onsubmit="createProd(createForm)"
-  method="post"
+  {{!-- method="post" --}}
 >
   <h3>Formulario de creacion</h3>
   <input
@@ -88,49 +88,30 @@
   } 
   
   //ACTUALIZA EL PRODUCTO
-  function createProd(prodData) {
+  async function createProd(prodData) {
+    const URL = "http://" + window.location.host + "/productos"
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Cookie", "connect.sid=s%3A_AGRLUXUoMp-BGT8-oVpbnBpiRVxGoZN.Uc4zsVZ%2B9nGIqV2QTXjJdflhleT2Va8pvmV9MEd1gt4");
     var raw = JSON.stringify({
-      "title": prodData.title.value,
-      "price": prodData.price.value,
-      "thumbnail": prodData.thumbnail.value,
-      "description": prodData.description.value,
-      "category": prodData.category.value,
-      "code": prodData.code.value,
-      "stock":prodData.stock.value 
+      title: prodData.title.value,
+      price: prodData.price.value,
+      thumbnail: prodData.thumbnail.value,
+      description: prodData.description.value,
+      category: prodData.category.value,
+      code: prodData.code.value,
+      stock:prodData.stock.value 
     });
-    var requestOptions = {
-      method: 'POST',
+    const requestOptions = {
+      method: "POST",
+      credentials: "same-origin",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
     };
-    fetch("http://localhost:8080/productos/", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-    
-    /*
-    const data = {
-      "title": document.getElementById("title"),
-      "price": document.getElementById("price"),
-      "thumbnail": document.getElementById("thumbnail"),
-      "description": document.getElementById("description"),
-      "category": document.getElementById("category"),
-      "code": document.getElementById("code"),
-      "stock": document.getElementById("stock"),
+    try {
+      await fetch(URL, requestOptions)
+    } catch(e) {
+      console.log("error ", e);
     }
-    const prod = JSON.stringify({
-      "title": data.title.value,
-      "price": data.price.value,
-      "thumbnail": data.thumbnail.value,
-      "description": data.description.value,
-      "category": data.category.value,
-      "code": data.code.value,
-      "stock": data.stock.value,
-    })
-  */
   }
 </script>

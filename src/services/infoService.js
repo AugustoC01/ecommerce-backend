@@ -1,6 +1,6 @@
-const yargs = require('yargs/yargs')(process.argv.slice(2));
+const yargs = require("yargs/yargs")(process.argv.slice(2));
 const args = yargs.argv;
-const numCPUs = require('os').cpus().length;
+const numCPUs = require("os").cpus().length;
 
 const getInfo = () => {
   return {

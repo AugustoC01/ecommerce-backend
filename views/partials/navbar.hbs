@@ -1,23 +1,23 @@
-<ul class='navbar'>
+<ul class="navbar">
   <li>
     {{#if notLogued}}
       <li>
-        <a href='/login'>Inicio</a>
+        <a href="/login">Inicio</a>
       </li>
     {{else}}
-      <a href='/productos'>Inicio</a>
-      <a href='/profile'>Perfil</a>
-      <a href='/chat'>Chat</a>
-      <a href='/carrito'>
+      <a href="/productos">Inicio</a>
+      <a href="/profile">Perfil</a>
+      <a href="/chat">Chat</a>
+      <a href="/carrito">
         <img
-          src='/public/images/cart.png'
-          alt='cart'
-          style='width: 2rem;vertical-align: bottom;'
+          src="/public/images/cart.png"
+          alt="cart"
+          style="width: 2rem;vertical-align: bottom;"
         /></a>
 
   </li>
-      <form action='/logout' method='POST'>
-        <input type='submit' value='Desloguear' class='navbar-'></input>
+      <form action="/logout" method="POST">
+        <input type="submit" value="Desloguear" class="navbar-"></input>
       </form>
     {{/if}}
 </ul>

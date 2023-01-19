@@ -1,5 +1,5 @@
-const { Schema, model } = require('mongoose');
-const { ProductSchema } = require('./prodSchema');
+const { Schema, model } = require("mongoose");
+const { ProductSchema } = require("./prodSchema");
 
 const CartSchema = new Schema({
   products: [ProductSchema],
@@ -8,7 +8,7 @@ const CartSchema = new Schema({
   address: { type: String, required: true },
 });
 
-const Carts = model('Carts', CartSchema);
+const Carts = model("Carts", CartSchema);
 module.exports = Carts;
 
 /* const CartSchema = new Schema({

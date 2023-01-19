@@ -1,8 +1,8 @@
-const multer = require('multer');
-const path = require('path');
-const { v4: uuid } = require('uuid');
+const multer = require("multer");
+const path = require("path");
+const { v4: uuid } = require("uuid");
 
-const IMG_URL = path.join(__dirname, '../../public/avatars');
+const IMG_URL = path.join(__dirname, "../../public/avatars");
 
 const storage = multer.diskStorage({
   destination: IMG_URL,
@@ -20,8 +20,8 @@ const upload = multer({
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(path.extname(file.originalname));
     if (mimetype & extname) return cb(null, true);
-    cb('error: el archivo sebe ser una imagen');
+    cb("error: el archivo sebe ser una imagen");
   },
-}).single('avatar');
+}).single("avatar");
 
 module.exports = upload;

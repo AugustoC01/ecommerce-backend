@@ -1,11 +1,11 @@
-const dotenv = require('dotenv').config();
-const yargs = require('yargs/yargs')(process.argv.slice(2));
+const dotenv = require("dotenv").config();
+const yargs = require("yargs/yargs")(process.argv.slice(2));
 
 let args;
-if (process.env.NODE_ENV == 'development') {
-  args = yargs.default({ port: 8080, mode: 'fork' }).argv;
+if (process.env.NODE_ENV == "development") {
+  args = yargs.default({ port: 8080, mode: "fork" }).argv;
 } else {
-  args = yargs.default({ port: 8080, mode: 'cluster' }).argv;
+  args = yargs.default({ port: 8080, mode: "cluster" }).argv;
 }
 
 const MONGO_URL = process.env.MONGO_URL;

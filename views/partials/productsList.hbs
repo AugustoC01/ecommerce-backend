@@ -5,15 +5,15 @@
         <p>{{this.title}}</p>
         <p>${{this.price}}</p>
         <img src="{{this.thumbnail}}" class="product-img" />
-        <div class="prodBtn-container">
-          <form action="productos/prod/{{this.id}}" method="post">
+        <div class="prod-btn-container">
+          <form action="productos/prod/{{this.id}}">
             <button class="btn" type="submit">Ver</button>
           </form>
-          <form action="carrito/{{this.id}}">
+          <form action="carrito/{{this.id}}" method="post">
             <button class="btn" type="submit">Agregar</button>
           </form>
           </div>
-          <div class="prodBtn-container">
+          <div class="prod-btn-container">
           <form
             action="/productos/edit/{{this.id}}"
             onsubmit="updateProd({{this.id}})"
@@ -37,11 +37,11 @@
         <p>{{this.title}}</p>
         <p>${{this.price}}</p>
         <img src="{{this.thumbnail}}" class="product-img" />
-        <div class="prodBtn-container">
+        <div class="prod-btn-container">
           <form action="productos/prod/{{this.id}}">
             <button class="btn" type="submit">Ver</button>
           </form>
-          <form action="carrito/{{this.id}}">
+          <form action="carrito/{{this.id}}" method="post">
             <button class="btn" type="submit">Agregar</button>
           </form>
         </div>
@@ -51,7 +51,7 @@
 {{/with}}
 
 <script>
-  function deleteProd(id) {
+  async function deleteProd(id) {
     const URL = "http://" + window.location.host + "/productos/" + id.value
     const token = localStorage.getItem("token")
     var requestOptions = {
@@ -59,9 +59,10 @@
       headers: {"Authorization": `Bearer ${token}`,},
       redirect: "follow"
     };  
-    fetch(URL, requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log("error", error));
+    try {
+      await fetch(URL, requestOptions)
+   } catch(e) {
+      console.log("e::: ", e);
+   }
   }
 </script>

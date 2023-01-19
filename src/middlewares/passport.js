@@ -1,27 +1,27 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const Users = require('../models/userSchema');
-const { createHash, isValidPass } = require('../helpers/brycpt');
-const { logger, errorLogger } = require('../helpers/logger');
-const { sendEmail } = require('../services/msgService');
-const UsersDao = require('../daos/usersDao');
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const Users = require("../models/userSchema");
+const { createHash, isValidPass } = require("../helpers/brycpt");
+const { logger, errorLogger } = require("../helpers/logger");
+const { sendEmail } = require("../services/msgService");
+const UsersDao = require("../daos/usersDao");
 
 passport.use(
-  'login',
+  "login",
   new LocalStrategy(
-    { usernameField: 'email' },
+    { usernameField: "email" },
     async (email, password, done) => {
       await Users.findOne({ email: email }, (err, user) => {
         if (err) {
-          errorLogger('Error en login : ', err);
+          errorLogger("Error en login : ", err);
           return done(err);
         }
         if (!user) {
-          errorLogger('incorrect credentials');
+          errorLogger("incorrect credentials");
           return done(null, false);
         }
         if (!isValidPass(user, password)) {
-          errorLogger('incorrect credentials');
+          errorLogger("incorrect credentials");
           return done(null, false);
         }
         return done(null, user);
@@ -31,17 +31,17 @@ passport.use(
 );
 
 passport.use(
-  'signup',
+  "signup",
   new LocalStrategy(
-    { usernameField: 'email', passReqToCallback: true },
-    async (req, email, done) => {
+    { usernameField: "email", passReqToCallback: true },
+    async (req, email, password, done) => {
       Users.findOne({ email: email }, (err, user) => {
         if (err) {
-          errorLogger('Error en signup: ', err);
+          errorLogger("Error en signup: ", err);
           return done(err);
         }
         if (user) {
-          errorLogger('User already exists');
+          errorLogger("User already exists");
           return done(null, false);
         }
         //CHECKNUMBER VERIFICA QUE EMAIL, NAME Y ADDRESS NO SEAN CAMPOS QUE SOLO CONTIENEN NUMEROS
@@ -55,24 +55,23 @@ passport.use(
           age: parseInt(req.body.age),
           phone: parseInt(req.body.phone),
           avatar: req.file.filename,
-          cartId: '',
         };
         try {
           UsersDao.validate(true, newUser);
         } catch (e) {
-          errorLogger('Campos invalidos');
+          errorLogger("Campos invalidos");
           return done(null, false);
         }
         Users.create(newUser, (err, user) => {
           if (err) {
-            errorLogger('Error saving user: ', err);
+            errorLogger("Error saving user: ", err);
             return done(err);
           }
-          logger.info('User registration succesful');
+          logger.info("User registration succesful");
           try {
-            sendEmail('Nuevo registro', JSON.stringify(newUser));
+            sendEmail("Nuevo registro", JSON.stringify(newUser));
           } catch (error) {
-            errorLogger('Email no enviado');
+            errorLogger("Email no enviado");
           }
           return done(null, user);
         });

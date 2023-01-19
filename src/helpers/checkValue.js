@@ -3,13 +3,13 @@ const checkValue = (required, value, type) => {
   if (required) {
     if (value) {
       if (type == dataType) return;
-      return new Error('Type error');
+      return new Error("Type error");
     }
-    return new Error('Value is required');
+    return new Error("Value is required");
   } else {
     if (value) {
       if (type == dataType) return;
-      return new Error('Type error');
+      return new Error("Type error");
     }
   }
 };

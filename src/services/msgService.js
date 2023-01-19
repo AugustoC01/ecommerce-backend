@@ -4,10 +4,10 @@ const {
   TWILIO_MI_NUM: MI_NUM,
   TWILIO_MAIL: MAIL,
   TWILIO_MAIL_PASS: MAIL_PASS,
-} = require('../config');
+} = require("../config");
 
-const { client, createTransport } = require('../middlewares/twilio');
-const { errorLogger } = require('../helpers/logger');
+const { client, createTransport } = require("../middlewares/twilio");
+const { errorLogger } = require("../helpers/logger");
 
 const sendWpp = (msg) => {
   try {
@@ -33,12 +33,13 @@ const sendSms = (msg) => {
       })
       .done();
   } catch (err) {
-    errorLogger(err);
+    console.log("err::: ", err);
+    // errorLogger(err);
   }
 };
 
 const transporter = createTransport({
-  service: 'gmail',
+  service: "gmail",
   port: 587,
   auth: {
     user: MAIL,

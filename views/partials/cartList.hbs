@@ -1,16 +1,57 @@
 {{#each cart.products}}
-  <div class='cart-product'>
+  <div class="cart-product">
     <p>{{this.title}}</p>
     <p>${{this.price}}</p>
-    <form action='/carrito/{{this.id}}' method='post'>
-      <button type='submit' class='btn'>Eliminar</button>
+    <form id="deleteForm" action="/carrito" onsubmit="deleteProd(id)">
+      <input type="hidden" id="id" value="{{this.id}}">
+      <button type="submit" class="btn">Eliminar</button>
     </form>
   </div>
 {{/each}}
-<div class='cart-price'>
+<div class="cart-price">
   <h2>Total: ${{cart.total}}</h2>
-  <form action='/carrito' method='POST'>
-    <button type='submit' class='btn'>Comprar</button>
+  <form action="/carrito" method="POST">
+    <button type="submit" class="btn">Comprar</button>
   </form>
-  {{! <button type='submit' class='btn'>Vaciar carrito</button> }}
+  <form id="clearCartForm" {{!-- action="/carrito" --}} onsubmit="clearCart()">
+    <button type="submit" class="btn">Vaciar carrito</button>
+  </form>
+  
 </div>
+
+<script>
+  async function deleteProd(id) {
+    const URL = window.location.href + "/" + id.value
+    var myHeaders = new Headers();
+    const token = localStorage.getItem("token")
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    var requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+    try {
+      const res = await fetch(URL , requestOptions)
+    } catch(e) {
+      console.log("e::: ", e);
+    }
+  }
+
+  async function clearCart() {
+    const URL = window.location.href
+    var myHeaders = new Headers();
+    const token = localStorage.getItem("token")
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    try {
+      await fetch(URL, requestOptions)
+    } catch(e) {
+      console.log('e::: ', e);
+    }
+  }
+
+</script>

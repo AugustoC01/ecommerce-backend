@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const cartRouter = Router();
 const {
   getCart,
@@ -6,12 +6,12 @@ const {
   addToCart,
   removeFromCart,
   deleteCart,
-} = require('../controllers/cartController');
+} = require("../controllers/cartController");
 
-cartRouter.get('/', getCart);
-cartRouter.post('/', sendCart, deleteCart);
-cartRouter.post('/:prodId', addToCart);
-cartRouter.delete('/:prodId', removeFromCart);
-cartRouter.delete('/', deleteCart);
+cartRouter.get("/", getCart);
+cartRouter.post("/", sendCart);
+cartRouter.post("/:prodId", addToCart);
+cartRouter.delete("/:prodId", removeFromCart);
+cartRouter.delete("/", deleteCart);
 
 module.exports = cartRouter;

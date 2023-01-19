@@ -1,6 +1,6 @@
-const { checkValue } = require('../helpers/checkValue');
-const { errorLogger } = require('../helpers/logger');
-const { Products } = require('../models/prodSchema');
+const { checkValue } = require("../helpers/checkValue");
+const { errorLogger } = require("../helpers/logger");
+const { Products } = require("../models/prodSchema");
 
 let instance = null;
 class ProductsDao {
@@ -35,15 +35,17 @@ class ProductsDao {
       await Products.create(prod);
       return prod._id;
     } catch (e) {
+      console.log("e::: ", e);
       errorLogger(e);
     }
   }
 
   async updateById(id, body) {
     try {
-      // ProductsDao.validate(false, body);
+      ProductsDao.validate(false, body);
       return await Products.updateOne({ _id: id }, { $set: body });
     } catch (e) {
+      console.log("e::: ", e);
       errorLogger(e);
     }
   }
@@ -59,15 +61,18 @@ class ProductsDao {
   //TIRA ERROR SI FALTA ALGUN DATO O SI EL TIPO DE DATO ES INCORRECTO
   static validate(required, prod) {
     const obj = {
-      title: checkValue(required, prod.title, 'string'),
-      price: checkValue(required, prod.price, 'number'),
-      thumbnail: checkValue(required, prod.thumbnail, 'string'),
-      description: checkValue(required, prod.description, 'string'),
-      code: checkValue(required, prod.code, 'string'),
-      stock: checkValue(required, prod.stock, 'number'),
+      title: checkValue(required, prod.title, "string"),
+      price: checkValue(required, prod.price, "number"),
+      thumbnail: checkValue(required, prod.thumbnail, "string"),
+      description: checkValue(required, prod.description, "string"),
+      code: checkValue(required, prod.code, "string"),
+      stock: checkValue(required, prod.stock, "number"),
     };
     for (const i in obj) {
-      if (obj[i]) throw obj[i];
+      if (obj[i]) {
+        console.log(i, obj[i]);
+        throw obj[i];
+      }
     }
   }
 }

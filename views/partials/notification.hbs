@@ -1,0 +1,17 @@
+<div class="login-error">
+  <form action="/{{action}}" method="GET" class="form-error">
+    <h1>{{msg}}</h1>
+    {{#if error}}
+    <img
+      src="https://media2.giphy.com/media/9bKN5AArXecaHyORTV/giphy.gif?cid=ecf05e47m2nnbvf1t6xy6wpromfjwn7yp8cy9wln1wmpfqjo&rid=giphy.gif&ct=g"
+      alt="error-img"
+    />
+    {{else}}
+    <img
+      src="https://media3.giphy.com/media/X9wZY0FtBmwHCp8QBm/giphy.gif?cid=790b7611d2f054caa116c3120fb4249254b4d1eb9e31a6f3&rid=giphy.gif&ct=g"
+      alt="notification-img"
+    />
+    {{/if}}
+    <button type="submit" class="btn violet">Volver</button>
+  </form>
+</div>

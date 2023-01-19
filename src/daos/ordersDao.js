@@ -1,5 +1,5 @@
-const Orders = require('../models/orderSchema');
-const { errorLogger } = require('../helpers/logger');
+const Orders = require("../models/orderSchema");
+const { errorLogger } = require("../helpers/logger");
 
 let instance = null;
 class OrdersDao {
@@ -20,7 +20,7 @@ class OrdersDao {
 
   async getMax() {
     try {
-      const order = await Orders.findOne().sort('orderNum');
+      const order = await Orders.findOne().sort("orderNum");
       if (!order) return 0;
       return order.orderNum;
     } catch (e) {
