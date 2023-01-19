@@ -47,7 +47,6 @@ const updateProd = async (req, res) => {
   const { isAdmin } = req.user;
   if (isAdmin) {
     const { id } = req.params;
-    console.log(id);
     const prod = req.body;
     return await updateProduct(id, prod);
   }

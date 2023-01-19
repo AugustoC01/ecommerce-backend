@@ -1,4 +1,5 @@
 const { Factory } = require("../daos/mainDao");
+const { errorLogger } = require("../helpers/logger");
 const DaoFactory = new Factory();
 const Products = DaoFactory.createDao("Products");
 
@@ -40,7 +41,7 @@ const createProduct = async (prod) => {
     const id = await Products.save(prod);
     return id;
   } catch (error) {
-    console.log("error::: ", error);
+    errorLogger(error);
   }
 };
 
@@ -50,7 +51,7 @@ const updateProduct = async (id, data) => {
     data.stock = parseInt(data.stock);
     await Products.updateById(id, data);
   } catch (error) {
-    console.log("error::: ", error);
+    errorLogger(error);
   }
 };
 

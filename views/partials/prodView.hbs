@@ -21,7 +21,7 @@
 {{/with}}
 
 <script>
-  function addToCart() {
+  async function addToCart() {
     var x = document.getElementById("id")
     const URL = "http://" + window.location.host + "/carrito/" + id.value
 
@@ -35,9 +35,10 @@
       redirect: "follow"
     };
 
-    fetch(URL, requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log("error", error));
+    try {
+      await fetch(URL, requestOptions)
+    } catch(e) {
+      console.log("Error")
+    }
   }
 </script>

@@ -35,7 +35,6 @@ class ProductsDao {
       await Products.create(prod);
       return prod._id;
     } catch (e) {
-      console.log("e::: ", e);
       errorLogger(e);
     }
   }
@@ -45,7 +44,6 @@ class ProductsDao {
       ProductsDao.validate(false, body);
       return await Products.updateOne({ _id: id }, { $set: body });
     } catch (e) {
-      console.log("e::: ", e);
       errorLogger(e);
     }
   }
@@ -69,10 +67,7 @@ class ProductsDao {
       stock: checkValue(required, prod.stock, "number"),
     };
     for (const i in obj) {
-      if (obj[i]) {
-        console.log(i, obj[i]);
-        throw obj[i];
-      }
+      if (obj[i]) throw obj[i];
     }
   }
 }

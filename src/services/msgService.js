@@ -33,8 +33,7 @@ const sendSms = (msg) => {
       })
       .done();
   } catch (err) {
-    console.log("err::: ", err);
-    // errorLogger(err);
+    errorLogger(err);
   }
 };
 

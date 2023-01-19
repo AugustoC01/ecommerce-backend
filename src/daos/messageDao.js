@@ -19,7 +19,7 @@ class MessagesDao {
 
   async getAll(email) {
     try {
-      return await Messages.find({ email }).sort("timestamp");
+      return await Messages.find({ email }).sort("-timestamp");
     } catch (e) {
       errorLogger(e);
     }

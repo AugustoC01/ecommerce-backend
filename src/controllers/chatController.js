@@ -7,8 +7,10 @@ const chat = (req, res) => {
 
 const getHistory = async (req, res) => {
   const { email } = req.params;
+  let chat = true;
   const history = await userHistory(email);
-  res.status(200).render("mainHistory", { history: history });
+  if (history.length == 0) chat = false;
+  res.status(200).render("mainHistory", { history: history, chat });
 };
 
 module.exports = { chat, getHistory };

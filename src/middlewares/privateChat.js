@@ -6,8 +6,6 @@ const privateChatHandle = (http) => {
   let adminEmail;
 
   io.on("connection", (socket) => {
-    console.log("User ", socket.id);
-
     socket.on("user-connected", ({ email, admin }) => {
       users[email] = socket.id;
       let usersData;

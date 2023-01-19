@@ -1,6 +1,6 @@
 FALTA
 
-- Documentacion
+- Documentacion (en proceso)
 
 - Agregar cantidades a los productos del carrito
 

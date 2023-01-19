@@ -45,6 +45,9 @@
   margin: 0.5rem 0.5rem 0 0;
 }
 /* ESTILOS DE CONTENEDOR PRODUCTOS */
+.products-container {
+  margin-top: 1rem;
+}
 .products-title {
   text-align: center;
 }
@@ -144,7 +147,8 @@
   align-items: center;
   gap: 1rem;
 }
-.updateForm input {
+.updateForm input,
+.msg {
   border: 0;
   background-color: transparent;
   border-bottom: 0.2rem solid gray;
@@ -153,7 +157,9 @@
   padding: 0.25rem 0;
 }
 .updateForm input:hover,
-.updateForm input:focus {
+.updateForm input:focus,
+.msg:hover,
+.msg:focus {
   outline: 0;
   border-bottom-color: #6658d3;
 }
@@ -318,7 +324,7 @@ input::-webkit-inner-spin-button {
 .history .time {
   color: red;
 }
-.history .msg {
+.history .msg-info {
   color: black;
 }
 .history .admin {
@@ -365,39 +371,14 @@ td {
 }
 
 /* ESTILOS DEL CHAT */
-/* .chat-container {
+.mainChat {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem auto;
+  gap: 1rem;
+  margin-top: 1rem;
 }
-.chat-form {
-  display: flex;
-  flex-direction: column;
-  width: 60vw;
-  padding: 1rem 0;
-}
-.msg-list {
-  background-color: lightgray;
-  width: 60vw;
-  text-align: initial;
-}
-.user {
-  font-weight: bold;
-  color: blue;
-}
-.date {
-  color: #964b00;
-}
-.msg {
-  color: green;
-  font-style: italic;
-}
-.avatar {
-  max-width: 5rem;
-  border-radius: 2rem;
-}
-*/
+
 .form-input {
   font-size: 1rem;
   padding: 0.3rem;

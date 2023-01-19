@@ -7,7 +7,6 @@ var users = [];
 
 //EL ADMIN VE LA LISTA DE USUARIOS CON UNA CONSULTA
 io.on("show-user", (usersData) => {
-  console.log(usersData);
   let usersList = "";
   usersData.forEach((user) => {
     usersList +=
@@ -41,7 +40,8 @@ io.on("new-msg", (msgData) => {
   } else {
     msgList += `<li>Admin dice: ${msgData.msg}</li>`;
   }
-  document.getElementById("messages").innerHTML += msgList;
+  const messages = document.getElementById("messages").outerHTML;
+  document.getElementById("messages").innerHTML = msgList + messages;
 });
 
 function newChat() {
@@ -76,7 +76,8 @@ function sendMsg() {
   } else {
     msgList += `<li>${email} dice: ${message}</li>`;
   }
-  document.getElementById("messages").innerHTML += msgList;
+  const messages = document.getElementById("messages").outerHTML;
+  document.getElementById("messages").innerHTML = msgList + messages;
   //PREVENT DEFAULT -- NO RECARGA LA PAGINA
   return false;
 }
