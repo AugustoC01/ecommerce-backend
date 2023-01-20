@@ -1,7 +1,5 @@
 FALTA
 
-- Documentacion (en proceso)
-
 - Agregar cantidades a los productos del carrito
 
 - Agregar control de stock
