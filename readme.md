@@ -90,6 +90,7 @@ Estas rutas son a partir de [localhost/chat]
 |:-------:|:------:|:-------------------:|
 | / | GET | Vista del chat |
 | /:email | GET | Vista del historial |
+
 Desde la vista de chat se pueden iniciar consultas y acceder al historial de cada user
 
 ## License
