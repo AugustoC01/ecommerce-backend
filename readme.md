@@ -96,7 +96,7 @@ Estas rutas son a partir de [localhost/chat]
 
 Desde la vista de chat se pueden iniciar consultas y acceder al historial de cada user
 
-[![Recorrido por el proyecto](/public/images/proyecto.gif)]
+![Recorrido por el proyecto](/public/images/proyecto.gif)
 
 ## License
 
