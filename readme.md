@@ -61,37 +61,42 @@ Hay ademas, dos rutas extra para manejar el error en login y en signup
 #### Rutas de productos
 
 Estas rutas son a partir de [localhost/productos]
-| Ruta | Metodo | Accion |
-|:-----------:|:------:|:-----------------------------:|
-| / | GET | Vista de productos |
-| /:categoria | GET | Filtra productos por cat. |
-| /prod/:id | GET | Vista de detalle de un prod |
-| /create | GET | Vista de interfaz de creacion |
-| /edit/:id | GET | Vista de interfaz de edicion |
-| / | POST | Creacion de producto |
-| /:id | PUT | Edicion de un producto |
-| /:id | DELETE | Eliminar un producto |
+
+|    Ruta     | Metodo |            Accion             |
+| :---------: | :----: | :---------------------------: |
+|      /      |  GET   |      Vista de productos       |
+| /:categoria |  GET   |   Filtra productos por cat.   |
+|  /prod/:id  |  GET   |  Vista de detalle de un prod  |
+|   /create   |  GET   | Vista de interfaz de creacion |
+|  /edit/:id  |  GET   | Vista de interfaz de edicion  |
+|      /      |  POST  |     Creacion de producto      |
+|    /:id     |  PUT   |    Edicion de un producto     |
+|    /:id     | DELETE |     Eliminar un producto      |
 
 #### Rutas de carrito
 
 Estas rutas son a partir de [localhost/carrito]
-| Ruta | Metodo | Accion |
-|:--------:|:------:|:-----------------------------:|
-| / | GET | Vista de productos en carrito |
-| / | POST | Finaliza la compra |
-| /:prodId | POST | Agrega un producto al carrito |
+
+|   Ruta   | Metodo |            Accion             |
+| :------: | :----: | :---------------------------: |
+|    /     |  GET   | Vista de productos en carrito |
+|    /     |  POST  |      Finaliza la compra       |
+| /:prodId |  POST  | Agrega un producto al carrito |
 | /:prodId | DELETE | Borra un producto del carrito |
-| / | DELETE | Vaciar el carrito |
+|    /     | DELETE |       Vaciar el carrito       |
 
 #### Rutas de chat
 
 Estas rutas son a partir de [localhost/chat]
-| Ruta | Metodo | Accion |
-|:-------:|:------:|:-------------------:|
-| / | GET | Vista del chat |
-| /:email | GET | Vista del historial |
+
+|  Ruta   | Metodo |       Accion        |
+| :-----: | :----: | :-----------------: |
+|    /    |  GET   |   Vista del chat    |
+| /:email |  GET   | Vista del historial |
 
 Desde la vista de chat se pueden iniciar consultas y acceder al historial de cada user
+
+[![Recorrido por el proyecto](/public/images/proyecto.gif)]
 
 ## License
 
