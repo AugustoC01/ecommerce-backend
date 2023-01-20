@@ -16,7 +16,7 @@ const Router = (app) => {
   app.use(authRouter);
   app.use(checkAuth);
 
-  app.use(infoRouter);
+  app.use("/info", infoRouter);
   app.use("/chat", chatRouter);
   app.use("/productos", prodsRouter);
   app.use("/carrito", cartRouter);
