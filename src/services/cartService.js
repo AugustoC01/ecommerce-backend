@@ -60,7 +60,6 @@ const removeProd = async (cartId, prodId) => {
 };
 
 const removeAll = async (cartId) => {
-  await createOrder(cartId);
   await Carts.deleteCartById(cartId);
   await Users.resetUserCart(cartId);
 };
@@ -68,7 +67,7 @@ const removeAll = async (cartId) => {
 const sendCartData = async (name, email, cartId) => {
   const cart = await getCartData(cartId);
   const products = cart.products.reduce(
-    (prods, prod) => prods + "" + prod.title,
+    (prods, prod) => prods + "" + prod.quantity + "x" + prod.title + " ",
     "Lista de productos: "
   );
   const subject = `Nuevo pedido de ${name} ${email}`;
@@ -76,7 +75,8 @@ const sendCartData = async (name, email, cartId) => {
   // sendWpp(subject);
   // sendSms(msg);
   // sendEmail(subject, products);
-  removeAll(cartId);
+  await createOrder(cartId);
+  await removeAll(cartId);
 };
 
 const isInCart = async (cartId, prodId) => {

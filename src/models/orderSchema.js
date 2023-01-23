@@ -1,8 +1,14 @@
 const { Schema, model } = require("mongoose");
-const { ProductSchema } = require("./prodSchema");
 
 const OrderSchema = new Schema({
-  items: [ProductSchema],
+  items: [
+    {
+      id: { type: String, required: true },
+      price: { type: Number, required: true },
+      title: { type: String, required: true },
+      quantity: { type: Number, required: true },
+    },
+  ],
   orderNum: { type: Number, required: true },
   timestamp: { type: Date, required: true },
   status: { type: String, default: "generada", required: true },

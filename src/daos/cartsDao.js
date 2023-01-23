@@ -44,7 +44,7 @@ class CartsDao {
         cart.products.forEach((product) => {
           if (product.id == prod.id)
             if (quantity) {
-              product.quantity = product.quantity + quantity;
+              product.quantity = product.quantity + parseInt(quantity);
             } else {
               product.quantity = product.quantity + 1;
             }
@@ -54,7 +54,7 @@ class CartsDao {
         });
       } else {
         if (quantity) {
-          prod.quantity = quantity;
+          prod.quantity = parseInt(quantity);
         } else {
           prod.quantity = 1;
         }

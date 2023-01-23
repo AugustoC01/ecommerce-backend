@@ -9,6 +9,7 @@ Este ecommerce esta desarrollado con Node utilizando Express. Utiliza la base de
 - [Tecnologias](#Tecnologias)
 - [Instalacion](#Instalacion)
 - [Rutas](#Rutas)
+- [Userflow](#Userflow)
 
 ## Tecnologias
 
@@ -68,7 +69,7 @@ Hay ademas, dos rutas extra para manejar el error en login y en signup
 
 #### Rutas de productos
 
-Estas rutas son a partir de [localhost/productos]
+Estas rutas son a partir de [localhost/productos]. Si un producto tiene stock = 0 entonces no aparecera en ninguna vista.
 
 |    Ruta     | Metodo |            Accion             |
 | :---------: | :----: | :---------------------------: |
@@ -103,6 +104,8 @@ Estas rutas son a partir de [localhost/chat]
 | /:email |  GET   | Vista del historial |
 
 Desde la vista de chat se pueden iniciar consultas y acceder al historial de cada user
+
+#### Userflow
 
 [![Recorrido por el proyecto](/public/images/userflow.gif)]
 
