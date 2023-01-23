@@ -41,6 +41,14 @@ Para ejecutarlo en entornos de produccion (en modo cluster)
 npm start
 ```
 
+Para ejecutarlo con tus propios parametros con nodemon o npm. Por defecto, con el primer comando, si NODE_ENV se encuentra en development, inicia en modo fork y puerto 8080. En cualquier otro NODE_ENV que no sea development, inicia en modo cluster y puerto 8080. El NODE_ENV puede ser cambiado desde .env
+
+```sh
+nodemon server.js
+nodemon server.js --port 8080 --mode cluster
+nodemon server.js --port 8080 --mode fork
+```
+
 ## Rutas
 
 Si se levanta el proyecto de manera local se puede acceder desde [localhost]. Los enlaces funcionan con el puerto por defecto = 8080
@@ -96,7 +104,7 @@ Estas rutas son a partir de [localhost/chat]
 
 Desde la vista de chat se pueden iniciar consultas y acceder al historial de cada user
 
-![Recorrido por el proyecto](/public/images/proyecto.gif)
+[![Recorrido por el proyecto](/public/images/userflow.gif)]
 
 ## License
 

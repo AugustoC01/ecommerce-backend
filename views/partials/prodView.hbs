@@ -2,26 +2,61 @@
   <div class="productView-container">
     <input type="hidden" name="id" id="id" value="{{this.id}}">
     <img src="{{this.thumbnail}}" alt="{{this.thumbnail}}">
+    
     <div class="productInfo-container">
       <h1>{{this.title}}</h1>
       <h3>${{this.price}}</h3>
       <p>{{this.description}}</p>
+
       <div class="counter-container">
         <h4>Cantidad</h4>
-        <input type="number" name="quantity" id="quantity" class="quantity-input" value="1">
+        <input type="number" name="quantity" id="quantity" class="quantity-input" value="1" max="{{this.stock}}">
       </div>
+
       <form onsubmit="addToCart()">
         <button type="submit" class="counter-btn">Agregar al carrito</button>
       </form>
-      <div class="prodDetails-container"><h5>Stock: </h5> <h5>{{this.stock}}</h5></div>
-      <div class="prodDetails-container"><h5>Codigo: </h5> <h5>{{this.code}}</h5></div>
-      <div class="prodDetails-container"><h5>Categoria: </h5> <h5>{{this.category}}</h5></div>
+
+      <h5>Stock: {{this.stock}}</h5>
+      <h5>Codigo: {{this.code}}</h5>
+      <h5>Categoria: {{this.category}}</h5>
     </div>
   </div>
 {{/with}}
 
 <script>
   async function addToCart() {
+    var x = document.getElementById("id")
+    const URL = "http://" + window.location.host + "/carrito/" + id.value
+
+    var myHeaders = new Headers();
+    const token = localStorage.getItem("token")
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    myHeaders.append("Content-Type", "application/json")
+
+    const quantity = document.getElementById("quantity").value
+
+    var raw = JSON.stringify({
+      "quantity": quantity
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    try {
+      await fetch(URL, requestOptions)
+    } catch(e) {
+      console.log("Error")
+    }
+  }
+</script>
+
+{{!-- 
+async function addToCart() {
     var x = document.getElementById("id")
     const URL = "http://" + window.location.host + "/carrito/" + id.value
 
@@ -41,4 +76,4 @@
       console.log("Error")
     }
   }
-</script>
+ --}}

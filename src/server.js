@@ -28,3 +28,7 @@ clusterHandle(httpServer);
 
 const privateChatHandle = require("./middlewares/privateChat");
 privateChatHandle(httpServer);
+
+// nodemon server.js         (EN DEVELOPMENT MODO FORK, EN PRODUCTION MODO CLUSTER, PUERTO 8080)
+// nodemon server.js --port 8080 --mode cluster
+// nodemon server.js --port 8080 --mode fork

@@ -1,8 +1,14 @@
 const { Schema, model } = require("mongoose");
-const { ProductSchema } = require("./prodSchema");
 
 const CartSchema = new Schema({
-  products: [ProductSchema],
+  products: [
+    {
+      id: { type: String, required: true },
+      price: { type: Number, required: true },
+      title: { type: String, required: true },
+      quantity: { type: Number, required: true },
+    },
+  ],
   userId: { type: Schema.ObjectId, required: true },
   timestamp: { type: Date, required: true },
   address: { type: String, required: true },
@@ -10,12 +16,3 @@ const CartSchema = new Schema({
 
 const Carts = model("Carts", CartSchema);
 module.exports = Carts;
-
-/* const CartSchema = new Schema({
-  products: [
-    { quantity: { type: Number, default: 1 } },
-    { prod: { type: ProductSchema } },
-  ],
-  userId: { type: Schema.ObjectId, required: true },
-  timestamp: { type: Date, required: true },
-}); */

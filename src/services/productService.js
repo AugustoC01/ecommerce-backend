@@ -34,6 +34,16 @@ const getProduct = async (id) => {
   return productData;
 };
 
+const prodToCart = async (id) => {
+  const product = await Products.getById(id);
+  return {
+    id: product._id.valueOf(),
+    title: product.title,
+    price: product.price,
+    stock: product.stock,
+  };
+};
+
 const createProduct = async (prod) => {
   try {
     prod.price = parseInt(prod.price);
@@ -65,4 +75,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  prodToCart,
 };

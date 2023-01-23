@@ -1,11 +1,9 @@
 var io = io();
 
-//VARIABLES PARA GUARDAR EMISOR Y REMITENTE
 var sender = "";
 var receiver = "";
 var users = [];
 
-//EL ADMIN VE LA LISTA DE USUARIOS CON UNA CONSULTA
 io.on("show-user", (usersData) => {
   let usersList = "";
   usersData.forEach((user) => {
@@ -31,7 +29,6 @@ io.on("chat-data", (messages) => {
 });
 
 io.on("new-msg", (msgData) => {
-  //MUESTRO EL MENSAJE A QUIEN LE CORRESPONDE
   let msgList = "";
   if (msgData.type == "usuario") {
     if (msgData.email == receiver) {
@@ -48,7 +45,6 @@ function newChat() {
   const email = document.getElementById("email").value;
   const admin = document.getElementById("admin").value;
   io.emit("user-connected", { email, admin });
-  //ASIGNO QUIEN ENVIA EL MENSAJE
   sender = email;
   return false;
 }
@@ -60,16 +56,13 @@ function onUserSelected(email) {
   io.emit("retrieve-chats", { email, adminEmail });
 }
 
-//EMITE EL MENSAJE AL SERVER
 function sendMsg() {
   const admin = document.getElementById("admin").value;
   const email = document.getElementById("email").value;
   const message = document.getElementById("message").value;
-  // VERIFICO QUE EL MENSAJE NO ESTE VACIO Y QUE HAYA DESTINO
   if (message == "") return false;
   if (admin == "true" && receiver == "") return false;
   io.emit("send-msg", { sender, receiver, message, admin });
-  // MUESTRO EL MENSAJE QUE MANDE
   let msgList = "";
   if (admin == "true") {
     msgList += `<li>Admin dice: ${message}</li>`;

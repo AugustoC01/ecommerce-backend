@@ -1,16 +1,15 @@
 {{>navbar}}
 
-<div class="cart-container">
-  {{#if cart}}
-  <h1 class="products-title">Listado de productos</h1>
-  <div id="cart-list" class="cart-list">
-    {{>cartList cart=.}}
+{{#if cart}}
+  <div class="cart-container">
+      <h1 class="products-title">Listado de productos</h1>
+      <div id="cart-list" class="cart-list">
+        {{>cartList cart=.}}
+      </div>
   </div>
-</div>
 {{else}}
-<div class="empty-cart">
-  <h1>Carrito vacio</h1>
-  <img src="https://media2.giphy.com/media/WuRVwQ8VIO8FC7ZxZH/giphy.gif?cid=ecf05e47ob0axpyptq3q8f3w9vekyazsjmr5cfx1d2yh28k6&rid=giphy.gif&ct=g" alt="gatito">
-</div>
+  <div class="empty-cart">
+    <h1>Carrito vacio</h1>
+    <img src="https://media2.giphy.com/media/WuRVwQ8VIO8FC7ZxZH/giphy.gif?cid=ecf05e47ob0axpyptq3q8f3w9vekyazsjmr5cfx1d2yh28k6&rid=giphy.gif&ct=g" alt="gatito">
+  </div>
 {{/if}}
-{{>footer}}

@@ -1,14 +1,22 @@
 {{#each cart.products}}
+
   <div class="cart-product">
+
     <p>{{this.title}}</p>
     <p>${{this.price}}</p>
+    <p>{{this.quantity}}</p>
+    <p><strong>Subtotal: ${{this.subTotal}}</strong></p>
     <form id="deleteForm" action="/carrito" onsubmit="deleteProd(id)">
       <input type="hidden" id="id" value="{{this.id}}">
-      <button type="submit" class="btn">Eliminar</button>
+      <button type="submit" class="btn">x</button>
     </form>
+
   </div>
+
 {{/each}}
+
 <div class="cart-price">
+
   <h2>Total: ${{cart.total}}</h2>
   <form action="/carrito" method="POST">
     <button type="submit" class="btn">Comprar</button>

@@ -37,23 +37,31 @@ class CartsDao {
     }
   }
 
-  /*   async findProd(cartId, prod) {
+  async addProdToCart(cartId, prod, prodInCart, quantity) {
     try {
-      const cart = await this.getCartById(cartId);
-      const prodIndex = cart.products.prod.findIndex(
-        (product) => product == prod
-      );
-      return prodIndex;
-    } catch (e) {
-      errorLogger(e);
-    }
-  }
- */
-  async addProdToCart(cartId, prod) {
-    try {
-      return await Carts.findByIdAndUpdate(cartId, {
-        $addToSet: { products: prod },
-      });
+      if (prodInCart) {
+        const cart = await Carts.findById(cartId);
+        cart.products.forEach((product) => {
+          if (product.id == prod.id)
+            if (quantity) {
+              product.quantity = product.quantity + quantity;
+            } else {
+              product.quantity = product.quantity + 1;
+            }
+        });
+        return await Carts.findByIdAndUpdate(cartId, {
+          $set: cart,
+        });
+      } else {
+        if (quantity) {
+          prod.quantity = quantity;
+        } else {
+          prod.quantity = 1;
+        }
+        return await Carts.findByIdAndUpdate(cartId, {
+          $push: { products: prod },
+        });
+      }
     } catch (e) {
       errorLogger(e);
     }
@@ -71,19 +79,3 @@ class CartsDao {
 }
 
 module.exports = CartsDao;
-
-/*   async addProdToCart(cartId, prod) {
-    try {
-      const index = this.findProd(cartId, prod);
-      if (index == -1) {
-        return await Carts.findByIdAndUpdate(cartId, {
-          $addToSet: { products: { quantity: 1, prod } },
-        });
-      }
-      const cart = Carts.findById(cartId);
-      cart.products[index].quantity++;
-      return await Carts.findByIdAndUpdate(cartId, cart);
-    } catch (e) {
-      errorLogger(e);
-    }
-  } */

@@ -1,7 +1,5 @@
 FALTA
 
-- Agregar cantidades a los productos del carrito
-
 - Agregar control de stock
 
 - Cuando se realizan algunos fetch, es necesario recargar la pagina para verlos

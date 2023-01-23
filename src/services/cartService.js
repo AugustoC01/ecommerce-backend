@@ -3,6 +3,7 @@ const DaoFactory = new Factory();
 const Carts = DaoFactory.createDao("Carts");
 const Users = DaoFactory.createDao("Users");
 const Products = DaoFactory.createDao("Products");
+const { prodToCart } = require("./productService");
 
 const { sendWpp, sendSms, sendEmail } = require("./msgService");
 const { createOrder } = require("./orderService");
@@ -14,25 +15,36 @@ const createCart = async (userId) => {
   return cartId;
 };
 
-const addProd = async (cartId, userId, prodId) => {
+const addProd = async (cartId, userId, prodId, quantity) => {
   if (!cartId) {
     cartId = await createCart(userId);
   }
-  const prod = await Products.getById(prodId);
-  await Carts.addProdToCart(cartId, prod);
+  const prodInCart = await isInCart(cartId, prodId);
+  const prod = await prodToCart(prodId);
+  await Carts.addProdToCart(cartId, prod, prodInCart, quantity);
 };
 
 const getCartData = async (cartId) => {
   if (!cartId) return { cart: false };
   const cart = await Carts.getCartById(cartId);
-  const productsList = cart.products;
+  let productsList;
+  try {
+    productsList = cart.products;
+  } catch (error) {
+    return { cart: false };
+  }
   if (productsList.length == 0) return { cart: false };
-  const total = productsList.reduce((total, prod) => total + prod.price, 0);
+  const total = productsList.reduce(
+    (total, prod) => total + prod.price * prod.quantity,
+    0
+  );
   const products = productsList.map((prod) => {
     return {
-      id: prod._id,
+      id: prod.id,
       title: prod.title,
       price: prod.price,
+      quantity: prod.quantity,
+      subTotal: prod.quantity * prod.price,
     };
   });
   return {
@@ -65,6 +77,15 @@ const sendCartData = async (name, email, cartId) => {
   // sendSms(msg);
   // sendEmail(subject, products);
   removeAll(cartId);
+};
+
+const isInCart = async (cartId, prodId) => {
+  const cart = await getCartData(cartId);
+  if (cart.products) {
+    const prod = cart.products.find((prod) => prod.id == prodId);
+    if (prod) return true;
+  }
+  return false;
 };
 
 module.exports = {
