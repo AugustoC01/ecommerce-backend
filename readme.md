@@ -107,7 +107,7 @@ Desde la vista de chat se pueden iniciar consultas y acceder al historial de cad
 
 #### Userflow
 
-[![Recorrido por el proyecto](/public/images/userflow.gif)]
+![Recorrido por el proyecto](/public/images/userflow.gif)
 
 ## License
 
