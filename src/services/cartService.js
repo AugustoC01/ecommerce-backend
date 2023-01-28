@@ -64,6 +64,17 @@ const removeAll = async (cartId) => {
   await Users.resetUserCart(cartId);
 };
 
+const handleCart = async (name, email, cartId) => {
+  try {
+    await stockCheck(cartId);
+    await sendCartData(name, email, cartId);
+    await createOrder(cartId);
+    await removeAll(cartId);
+  } catch (error) {
+    return error;
+  }
+};
+
 const sendCartData = async (name, email, cartId) => {
   const cart = await getCartData(cartId);
   const products = cart.products.reduce(
@@ -75,8 +86,6 @@ const sendCartData = async (name, email, cartId) => {
   // sendWpp(subject);
   // sendSms(msg);
   // sendEmail(subject, products);
-  await createOrder(cartId);
-  await removeAll(cartId);
 };
 
 const isInCart = async (cartId, prodId) => {
@@ -88,10 +97,20 @@ const isInCart = async (cartId, prodId) => {
   return false;
 };
 
+const stockCheck = async (cartId) => {
+  const cart = await getCartData(cartId);
+  for (const prod of cart.products) {
+    const product = await Products.getById(prod.id);
+    if (prod.quantity > product.stock) {
+      throw Error(`${prod.title} sin stock suficiente`);
+    }
+  }
+};
+
 module.exports = {
+  handleCart,
   addProd,
   getCartData,
   removeProd,
   removeAll,
-  sendCartData,
 };

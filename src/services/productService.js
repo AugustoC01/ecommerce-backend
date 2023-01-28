@@ -65,6 +65,11 @@ const updateProduct = async (id, data) => {
   }
 };
 
+const updateStock = async (id, quantity) => {
+  //CREATE THE LOGIC TO UDPATE PRODUCT STOCK
+  //PROBABLY USING UPDATEBYID PRODUCT'S DAO METHOD
+};
+
 const deleteProduct = async (id) => {
   await Products.deleteById(id);
 };

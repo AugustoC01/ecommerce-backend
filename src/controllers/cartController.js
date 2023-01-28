@@ -3,7 +3,7 @@ const {
   addProd,
   removeProd,
   removeAll,
-  sendCartData,
+  handleCart,
 } = require("../services/cartService");
 
 const addToCart = async (req, res) => {
@@ -32,7 +32,14 @@ const deleteCart = async (req, res) => {
 
 const sendCart = async (req, res, next) => {
   const { name, email, cartId } = req.user;
-  await sendCartData(name, email, cartId);
+  const order = await handleCart(name, email, cartId);
+  if (order) {
+    return res.status(200).render("mainNotification", {
+      action: "carrito",
+      msg: order.message,
+      error: true,
+    });
+  }
   res.status(200).render("mainNotification", {
     action: "productos",
     msg: "Compra realizada",
