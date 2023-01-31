@@ -3,7 +3,7 @@ const DaoFactory = new Factory();
 const Carts = DaoFactory.createDao("Carts");
 const Users = DaoFactory.createDao("Users");
 const Products = DaoFactory.createDao("Products");
-const { prodToCart } = require("./productService");
+const { prodToCart, updateStock } = require("./productService");
 
 const { sendWpp, sendSms, sendEmail } = require("./msgService");
 const { createOrder } = require("./orderService");
@@ -27,12 +27,7 @@ const addProd = async (cartId, userId, prodId, quantity) => {
 const getCartData = async (cartId) => {
   if (!cartId) return { cart: false };
   const cart = await Carts.getCartById(cartId);
-  let productsList;
-  try {
-    productsList = cart.products;
-  } catch (error) {
-    return { cart: false };
-  }
+  const productsList = cart.products;
   if (productsList.length == 0) return { cart: false };
   const total = productsList.reduce(
     (total, prod) => total + prod.price * prod.quantity,
@@ -55,8 +50,7 @@ const getCartData = async (cartId) => {
 };
 
 const removeProd = async (cartId, prodId) => {
-  const prod = await Products.getById(prodId);
-  await Carts.deleteProdFromCart(cartId, prod);
+  await Carts.deleteProdFromCart(cartId, prodId);
 };
 
 const removeAll = async (cartId) => {
@@ -67,8 +61,9 @@ const removeAll = async (cartId) => {
 const handleCart = async (name, email, cartId) => {
   try {
     await stockCheck(cartId);
-    await sendCartData(name, email, cartId);
+    // await sendCartData(name, email, cartId);
     await createOrder(cartId);
+    getNewStock(cartId);
     await removeAll(cartId);
   } catch (error) {
     return error;
@@ -76,21 +71,21 @@ const handleCart = async (name, email, cartId) => {
 };
 
 const sendCartData = async (name, email, cartId) => {
-  const cart = await getCartData(cartId);
+  const cart = await Carts.getCartById(cartId);
   const products = cart.products.reduce(
     (prods, prod) => prods + "" + prod.quantity + "x" + prod.title + " ",
     "Lista de productos: "
   );
   const subject = `Nuevo pedido de ${name} ${email}`;
   const msg = "Su pedido ha sido recibido y se encuentra en proceso";
-  // sendWpp(subject);
-  // sendSms(msg);
-  // sendEmail(subject, products);
+  sendWpp(subject);
+  sendSms(msg);
+  sendEmail(subject, products);
 };
 
 const isInCart = async (cartId, prodId) => {
-  const cart = await getCartData(cartId);
-  if (cart.products) {
+  const cart = await Carts.getCartById(cartId);
+  if (cart.products.length > 0) {
     const prod = cart.products.find((prod) => prod.id == prodId);
     if (prod) return true;
   }
@@ -98,12 +93,21 @@ const isInCart = async (cartId, prodId) => {
 };
 
 const stockCheck = async (cartId) => {
-  const cart = await getCartData(cartId);
+  const cart = await Carts.getCartById(cartId);
   for (const prod of cart.products) {
     const product = await Products.getById(prod.id);
     if (prod.quantity > product.stock) {
       throw Error(`${prod.title} sin stock suficiente`);
     }
+  }
+};
+
+const getNewStock = async (cartId) => {
+  const cart = await Carts.getCartById(cartId);
+  for (const prod of cart.products) {
+    const product = await Products.getById(prod.id);
+    const newStock = product.stock - prod.quantity;
+    await updateStock(prod.id, { stock: newStock });
   }
 };
 

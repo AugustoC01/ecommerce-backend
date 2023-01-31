@@ -6,7 +6,7 @@
     <p>${{this.price}}</p>
     <p>{{this.quantity}}</p>
     <p><strong>Subtotal: ${{this.subTotal}}</strong></p>
-    <form id="deleteForm" action="/carrito" onsubmit="deleteProd(id)">
+    <form id="deleteForm" action="/productos" onsubmit="deleteProd(id)">
       <input type="hidden" id="id" value="{{this.id}}">
       <button type="submit" class="btn">x</button>
     </form>

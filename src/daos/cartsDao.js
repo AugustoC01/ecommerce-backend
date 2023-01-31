@@ -11,6 +11,7 @@ class CartsDao {
   async newCart(userId, address) {
     try {
       const newCart = await Carts.create({
+        products: [],
         userId,
         timestamp: new Date().toLocaleString(),
         address,
@@ -67,10 +68,12 @@ class CartsDao {
     }
   }
 
-  async deleteProdFromCart(cartId, prod) {
+  async deleteProdFromCart(cartId, prodId) {
     try {
+      const cart = await Carts.findById(cartId);
+      const newProducts = cart.products.filter((prod) => prod.id !== prodId);
       return await Carts.findByIdAndUpdate(cartId, {
-        $pull: { products: prod },
+        $set: { products: newProducts },
       });
     } catch (e) {
       errorLogger(e);

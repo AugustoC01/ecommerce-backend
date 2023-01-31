@@ -14,14 +14,10 @@ const addToCart = async (req, res) => {
   res.status(200).redirect("/productos");
 };
 
-const getCart = async (req, res, next) => {
-  try {
-    const { cartId } = req.user;
-    data = await getCartData(cartId);
-    res.status(200).render("mainCart", data);
-  } catch (err) {
-    next(err);
-  }
+const getCart = async (req, res) => {
+  const { cartId } = req.user;
+  const data = await getCartData(cartId);
+  res.status(200).render("mainCart", data);
 };
 
 const deleteCart = async (req, res) => {
@@ -30,7 +26,7 @@ const deleteCart = async (req, res) => {
   res.status(200).redirect("/carrito");
 };
 
-const sendCart = async (req, res, next) => {
+const sendCart = async (req, res) => {
   const { name, email, cartId } = req.user;
   const order = await handleCart(name, email, cartId);
   if (order) {
@@ -50,7 +46,7 @@ const removeFromCart = async (req, res) => {
   const { prodId } = req.params;
   const { cartId } = req.user;
   await removeProd(cartId, prodId);
-  res.status(200).redirect("/carrito");
+  res.status(200).redirect("/productos");
 };
 
 module.exports = { getCart, sendCart, addToCart, deleteCart, removeFromCart };

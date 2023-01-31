@@ -1,7 +1,5 @@
 FALTA
 
-- Agregar control de stock
-
-  CHEQUEAR SI ES MEJOR CREAR UN CHEQUEADOR DE STOCK EN PRODUCTS DAO E INVOCARLO CUANDO EL CARRITO REVISA SI LOS PRODUCTOS TIENEN STOCK SUFICIENTE
+- Crear products adapters (uno en uso en cartService - linea 23 - salido de productService)
 
 - Cuando se realizan algunos fetch, es necesario recargar la pagina para verlos

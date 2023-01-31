@@ -45,29 +45,20 @@ const prodToCart = async (id) => {
 };
 
 const createProduct = async (prod) => {
-  try {
-    prod.price = parseInt(prod.price);
-    prod.stock = parseInt(prod.stock);
-    const id = await Products.save(prod);
-    return id;
-  } catch (error) {
-    errorLogger(error);
-  }
+  prod.price = parseInt(prod.price);
+  prod.stock = parseInt(prod.stock);
+  const id = await Products.save(prod);
+  return id;
 };
 
 const updateProduct = async (id, data) => {
-  try {
-    data.price = parseInt(data.price);
-    data.stock = parseInt(data.stock);
-    await Products.updateById(id, data);
-  } catch (error) {
-    errorLogger(error);
-  }
+  data.price = parseInt(data.price);
+  data.stock = parseInt(data.stock);
+  await Products.updateById(id, data);
 };
 
-const updateStock = async (id, quantity) => {
-  //CREATE THE LOGIC TO UDPATE PRODUCT STOCK
-  //PROBABLY USING UPDATEBYID PRODUCT'S DAO METHOD
+const updateStock = async (id, data) => {
+  await Products.updateById(id, data);
 };
 
 const deleteProduct = async (id) => {
@@ -81,4 +72,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   prodToCart,
+  updateStock,
 };
