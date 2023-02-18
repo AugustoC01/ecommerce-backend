@@ -1,5 +1,0 @@
-FALTA
-
-- Crear products adapters (uno en uso en cartService - linea 23 - salido de productService)
-
-- Cuando se realizan algunos fetch, es necesario recargar la pagina para verlos
